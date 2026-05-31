@@ -1,63 +1,37 @@
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
+import 'package:colosseum_guide/feature/guided_spots_details/view_model/guided_spots_details_view_model.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/widgets/audio_player_widget.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/widgets/panorama_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-class GuidedSpotsDetailsView extends StatefulWidget {
+class GuidedSpotsDetailsView extends ConsumerStatefulWidget {
   final List<TourPointModel> tourPoints;
 
   const GuidedSpotsDetailsView({super.key, required this.tourPoints});
 
   @override
-  State<GuidedSpotsDetailsView> createState() => _GuidedSpotsDetailsViewState();
+  ConsumerState<GuidedSpotsDetailsView> createState() => _GuidedSpotsDetailsViewState();
 }
 
-class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
-  int currentIndex = 0;
-  late AudioPlayer _audioPlayer;
-  bool _audioLoaded = false;
-  bool _loading = true;
+class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView> {
   final double _sheetExtent = 0.35;
 
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
-    _loadAudio();
-  }
-
-
-
-  Future<void> _loadAudio() async {
-    if (widget.tourPoints.isEmpty) return;
-    setState(() => _audioLoaded = false);
-    try {
-      await _audioPlayer.setAsset(widget.tourPoints[currentIndex].narrationAudio);
-      setState(() => _audioLoaded = true);
-    } catch (_) {
-      setState(() => _audioLoaded = false);
-    }
-    setState(() => _loading = false);
-  }
-
-  void _goToStop(int index) {
-    if (index < 0 || index >= widget.tourPoints.length) return;
-    _audioPlayer.stop();
-    setState(() => currentIndex = index);
-    _loadAudio();
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(guidedSpotsDetailsViewModelProvider(widget.tourPoints).notifier).loadAudio();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
+    final state = ref.watch(guidedSpotsDetailsViewModelProvider(widget.tourPoints));
+    final notifier = ref.read(guidedSpotsDetailsViewModelProvider(widget.tourPoints).notifier);
+
+    if (state.loading) {
       return const Scaffold(
         backgroundColor: Colors.black,
         body: Center(
@@ -66,7 +40,7 @@ class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
       );
     }
 
-    final currentLocationPoint = widget.tourPoints[currentIndex];
+    final currentLocationPoint = state.tourPoints[state.currentIndex];
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -124,7 +98,7 @@ class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          'Stop ${currentIndex + 1} / ${widget.tourPoints.length}',
+                          'Stop ${state.currentIndex + 1} / ${state.tourPoints.length}',
                           style: const TextStyle(
                             color: Color(0xFFFFC107),
                             fontSize: 14,
@@ -214,8 +188,8 @@ class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: AudioPlayerWidget(
-                        player: _audioPlayer,
-                        loaded: _audioLoaded,
+                        player: notifier.audioPlayer,
+                        loaded: state.audioLoaded,
                       ),
                     ),
 
@@ -226,8 +200,8 @@ class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
                         children: [
                           Expanded(
                             child: OutlinedButton.icon(
-                              onPressed: currentIndex > 0
-                                  ? () => _goToStop(currentIndex - 1)
+                              onPressed: state.currentIndex > 0
+                                  ? () => notifier.goToStop(state.currentIndex - 1)
                                   : null,
                               icon: const Icon(Icons.arrow_back, size: 16),
                               label: const Text('Previous'),
@@ -243,8 +217,8 @@ class _GuidedSpotsDetailsViewState extends State<GuidedSpotsDetailsView> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: FilledButton.icon(
-                              onPressed: currentIndex < widget.tourPoints.length - 1
-                                  ? () => _goToStop(currentIndex + 1)
+                              onPressed: state.currentIndex < state.tourPoints.length - 1
+                                  ? () => notifier.goToStop(state.currentIndex + 1)
                                   : null,
                               icon: const Icon(Icons.arrow_forward, size: 16),
                               label: const Text('Next'),

@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
   injectable: ^2.3.0
-  flutter_riverpod: ^3.3.1
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   go_router: ^14.1.4
@@ -44,6 +43,8 @@ dependencies:
   rename: ^3.1.0
   just_audio: ^0.9.0
   panorama_viewer: ^2.0.4
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3 # Downgraded slightly to match older ge
  
 
 dev_dependencies:
@@ -52,6 +53,7 @@ dev_dependencies:
   injectable_generator: ^2.4.0
   json_serializable: ^6.7.1
   freezed: ^2.5.2
+  riverpod_generator: ^2.3.9 
   build_runner: ^2.4.10  
 
   # The "flutter_lints" package below contains a set of recommended lints to
