@@ -6,7 +6,7 @@ const guideData = {
       "subtitle": "Walk through 2,000 years of history",
       "description":
           "Experience the Colosseum from the arena floor to the upper tiers. This comprehensive tour covers the amphitheater's architecture, gladiatorial combat, and the underground hypogeum.",
-      "coverImage": "assets/panoramas/colosseum_entrance.jpg",
+      "coverImage": "assets/panoramas/title_image.jpg",
       "durationMinutes": 45,
       "points": [
         {
@@ -15,7 +15,7 @@ const guideData = {
           "subtitle": "Porta Triumphalis — Gate of Triumph",
           "description":
               "You stand before the northern entrance where gladiators once passed beneath the great arch. The travertine stone walls rise 48 meters around you. Imagine the roar of 50,000 spectators echoing through these very corridors.",
-          "panoramaImage": "assets/panoramas/colosseum_entrance.jpg",
+          "panoramaImage": "assets/panoramas/image_02.jpg",
           "narrationAudio": "assets/audio/01_entrance.mp3",
           "yaw": 180.0,
           "pitch": 10.0,
@@ -47,7 +47,7 @@ const guideData = {
           "subtitle": "Where Gladiators Fought",
           "description":
               "The arena stretched 86 meters long and 54 meters wide. Beneath your feet lies the hypogeum — a maze of tunnels and cages where gladiators and wild animals waited before battle.",
-          "panoramaImage": "assets/panoramas/colosseum_arena.jpg",
+          "panoramaImage": "assets/panoramas/image_03.png",
           "narrationAudio": "assets/audio/02_arena.mp3",
           "yaw": 0.0,
           "pitch": 0.0,
@@ -88,7 +88,7 @@ const guideData = {
           "subtitle": "Underground Labyrinth",
           "description":
               "Two levels of underground passages stretch beneath the arena. Gladiators waited in cells. Lions paced in cages. Mechanical elevators raised beasts and scenery through trapdoors onto the arena floor.",
-          "panoramaImage": "assets/panoramas/test_from_vlc.png",
+          "panoramaImage": "assets/panoramas/image_04.png",
           "narrationAudio": "assets/audio/03_hypogeum.mp3",
           "yaw": 45.0,
           "pitch": 0.0,
@@ -120,7 +120,7 @@ const guideData = {
           "subtitle": "Seats of the Citizens",
           "description":
               "From the highest point of the Colosseum, Rome stretches before you in all directions. The Temple of Venus, the Forum, and the Palatine Hill are all visible from this vantage point.",
-          "panoramaImage": "assets/panoramas/colosseum_upper.jpg",
+          "panoramaImage": "assets/panoramas/image_05.jpg",
           "narrationAudio": "assets/audio/04_upper_tier.mp3",
           "yaw": -60.0,
           "pitch": 20.0,
@@ -152,7 +152,7 @@ const guideData = {
           "subtitle": "Ancient Corridors",
           "description":
               "These barrel-vaulted corridors ringed each level of the Colosseum. During spectacles, vendors sold bread and wine. The walls still bear graffiti scratched by Roman spectators waiting for the games to begin.",
-          "panoramaImage": "assets/panoramas/colosseum_corridor.jpg",
+          "panoramaImage": "assets/panoramas/image_06.png",
           "narrationAudio": "assets/audio/05_corridor.mp3",
           "yaw": 90.0,
           "pitch": 5.0,
@@ -184,7 +184,7 @@ const guideData = {
           "subtitle": "A Timeless Silhouette",
           "description":
               "The golden light of the setting sun transforms the Colosseum's ruins into a timeless silhouette. For nearly two millennia, this monument has stood as a testament to Roman engineering ambition and the enduring fascination of the arena.",
-          "panoramaImage": "assets/panoramas/colosseum_sunset.jpg",
+          "panoramaImage": "assets/panoramas/image_07.jpg",
           "narrationAudio": "assets/audio/06_sunset.mp3",
           "yaw": 0.0,
           "pitch": 15.0,

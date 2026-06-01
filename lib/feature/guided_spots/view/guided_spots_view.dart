@@ -5,6 +5,7 @@ import 'package:colosseum_guide/feature/guided_spots/view_model/guided_spots_vie
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 class GuidedSpotsView extends ConsumerWidget {
   const GuidedSpotsView({super.key});
@@ -44,7 +45,7 @@ class GuidedSpotsView extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return guidedSpotsState.isLoading
+                return  guidedSpotsState.tours.isEmpty
                     ? const Center(
                         child: CircularProgressIndicator(
                           color: Color(0xFFFFC107),
@@ -52,7 +53,12 @@ class GuidedSpotsView extends ConsumerWidget {
                       )
                     : _TourCard(
                         tour: guidedSpotsState.tours[index],
-                        onTap: () => _navigateToGuide(
+                        onTap: () => guidedSpotsState.tours[index].points.isEmpty ? toastification.show(
+                           title: Text("Oops! This tour is currently unavailable."),
+                          type: ToastificationType.warning,
+                          style: ToastificationStyle.flat,
+                          autoCloseDuration: Duration(seconds: 3),
+                        ) : _navigateToGuide(
                           context,
                           guidedSpotsState.tours[index],
                         ),
