@@ -10,7 +10,7 @@ class PanoramaViewerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PanoramaViewer(
       animSpeed: 1.0,
-      sensorControl: SensorControl.orientation,
+      sensorControl: SensorControl.none,
       child: Image.asset(imagePath, fit: BoxFit.cover),
     );
   }
