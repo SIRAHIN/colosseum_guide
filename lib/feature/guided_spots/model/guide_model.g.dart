@@ -14,8 +14,10 @@ _$GuideModelDataImpl _$$GuideModelDataImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$GuideModelDataImplToJson(
-  _$GuideModelDataImpl instance,
-) => <String, dynamic>{'tours': instance.tours};
+        _$GuideModelDataImpl instance) =>
+    <String, dynamic>{
+      'tours': instance.tours,
+    };
 
 _$TourModelImpl _$$TourModelImplFromJson(Map<String, dynamic> json) =>
     _$TourModelImpl(
@@ -60,19 +62,19 @@ _$TourPointModelImpl _$$TourPointModelImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$TourPointModelImplToJson(
-  _$TourPointModelImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'title': instance.title,
-  'subtitle': instance.subtitle,
-  'description': instance.description,
-  'panoramaImage': instance.panoramaImage,
-  'narrationAudio': instance.narrationAudio,
-  'yaw': instance.yaw,
-  'pitch': instance.pitch,
-  'connections': instance.connections,
-  'hotspots': instance.hotspots,
-};
+        _$TourPointModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'subtitle': instance.subtitle,
+      'description': instance.description,
+      'panoramaImage': instance.panoramaImage,
+      'narrationAudio': instance.narrationAudio,
+      'yaw': instance.yaw,
+      'pitch': instance.pitch,
+      'connections': instance.connections,
+      'hotspots': instance.hotspots,
+    };
 
 _$HotspotModelImpl _$$HotspotModelImplFromJson(Map<String, dynamic> json) =>
     _$HotspotModelImpl(

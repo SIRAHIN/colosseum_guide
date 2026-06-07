@@ -12,8 +12,7 @@ part of 'guide_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GuideModelData _$GuideModelDataFromJson(Map<String, dynamic> json) {
   return _GuideModelData.fromJson(json);
@@ -23,12 +22,8 @@ GuideModelData _$GuideModelDataFromJson(Map<String, dynamic> json) {
 mixin _$GuideModelData {
   List<TourModel> get tours => throw _privateConstructorUsedError;
 
-  /// Serializes this GuideModelData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of GuideModelData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $GuideModelDataCopyWith<GuideModelData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,9 +31,8 @@ mixin _$GuideModelData {
 /// @nodoc
 abstract class $GuideModelDataCopyWith<$Res> {
   factory $GuideModelDataCopyWith(
-    GuideModelData value,
-    $Res Function(GuideModelData) then,
-  ) = _$GuideModelDataCopyWithImpl<$Res, GuideModelData>;
+          GuideModelData value, $Res Function(GuideModelData) then) =
+      _$GuideModelDataCopyWithImpl<$Res, GuideModelData>;
   @useResult
   $Res call({List<TourModel> tours});
 }
@@ -53,30 +47,26 @@ class _$GuideModelDataCopyWithImpl<$Res, $Val extends GuideModelData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GuideModelData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tours = null}) {
-    return _then(
-      _value.copyWith(
-            tours: null == tours
-                ? _value.tours
-                : tours // ignore: cast_nullable_to_non_nullable
-                      as List<TourModel>,
-          )
-          as $Val,
-    );
+  $Res call({
+    Object? tours = null,
+  }) {
+    return _then(_value.copyWith(
+      tours: null == tours
+          ? _value.tours
+          : tours // ignore: cast_nullable_to_non_nullable
+              as List<TourModel>,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$GuideModelDataImplCopyWith<$Res>
     implements $GuideModelDataCopyWith<$Res> {
-  factory _$$GuideModelDataImplCopyWith(
-    _$GuideModelDataImpl value,
-    $Res Function(_$GuideModelDataImpl) then,
-  ) = __$$GuideModelDataImplCopyWithImpl<$Res>;
+  factory _$$GuideModelDataImplCopyWith(_$GuideModelDataImpl value,
+          $Res Function(_$GuideModelDataImpl) then) =
+      __$$GuideModelDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<TourModel> tours});
@@ -87,23 +77,20 @@ class __$$GuideModelDataImplCopyWithImpl<$Res>
     extends _$GuideModelDataCopyWithImpl<$Res, _$GuideModelDataImpl>
     implements _$$GuideModelDataImplCopyWith<$Res> {
   __$$GuideModelDataImplCopyWithImpl(
-    _$GuideModelDataImpl _value,
-    $Res Function(_$GuideModelDataImpl) _then,
-  ) : super(_value, _then);
+      _$GuideModelDataImpl _value, $Res Function(_$GuideModelDataImpl) _then)
+      : super(_value, _then);
 
-  /// Create a copy of GuideModelData
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? tours = null}) {
-    return _then(
-      _$GuideModelDataImpl(
-        tours: null == tours
-            ? _value._tours
-            : tours // ignore: cast_nullable_to_non_nullable
-                  as List<TourModel>,
-      ),
-    );
+  $Res call({
+    Object? tours = null,
+  }) {
+    return _then(_$GuideModelDataImpl(
+      tours: null == tours
+          ? _value._tours
+          : tours // ignore: cast_nullable_to_non_nullable
+              as List<TourModel>,
+    ));
   }
 }
 
@@ -111,7 +98,7 @@ class __$$GuideModelDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$GuideModelDataImpl implements _GuideModelData {
   const _$GuideModelDataImpl({required final List<TourModel> tours})
-    : _tours = tours;
+      : _tours = tours;
 
   factory _$GuideModelDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$GuideModelDataImplFromJson(json);
@@ -137,25 +124,23 @@ class _$GuideModelDataImpl implements _GuideModelData {
             const DeepCollectionEquality().equals(other._tours, _tours));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tours));
 
-  /// Create a copy of GuideModelData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GuideModelDataImplCopyWith<_$GuideModelDataImpl> get copyWith =>
       __$$GuideModelDataImplCopyWithImpl<_$GuideModelDataImpl>(
-        this,
-        _$identity,
-      );
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GuideModelDataImplToJson(this);
+    return _$$GuideModelDataImplToJson(
+      this,
+    );
   }
 }
 
@@ -168,11 +153,8 @@ abstract class _GuideModelData implements GuideModelData {
 
   @override
   List<TourModel> get tours;
-
-  /// Create a copy of GuideModelData
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GuideModelDataImplCopyWith<_$GuideModelDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -191,12 +173,8 @@ mixin _$TourModel {
   int get durationMinutes => throw _privateConstructorUsedError;
   List<TourPointModel> get points => throw _privateConstructorUsedError;
 
-  /// Serializes this TourModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of TourModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $TourModelCopyWith<TourModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -206,15 +184,14 @@ abstract class $TourModelCopyWith<$Res> {
   factory $TourModelCopyWith(TourModel value, $Res Function(TourModel) then) =
       _$TourModelCopyWithImpl<$Res, TourModel>;
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String subtitle,
-    String description,
-    String coverImage,
-    int durationMinutes,
-    List<TourPointModel> points,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String subtitle,
+      String description,
+      String coverImage,
+      int durationMinutes,
+      List<TourPointModel> points});
 }
 
 /// @nodoc
@@ -227,8 +204,6 @@ class _$TourModelCopyWithImpl<$Res, $Val extends TourModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TourModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,39 +215,36 @@ class _$TourModelCopyWithImpl<$Res, $Val extends TourModel>
     Object? durationMinutes = null,
     Object? points = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            subtitle: null == subtitle
-                ? _value.subtitle
-                : subtitle // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: null == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String,
-            coverImage: null == coverImage
-                ? _value.coverImage
-                : coverImage // ignore: cast_nullable_to_non_nullable
-                      as String,
-            durationMinutes: null == durationMinutes
-                ? _value.durationMinutes
-                : durationMinutes // ignore: cast_nullable_to_non_nullable
-                      as int,
-            points: null == points
-                ? _value.points
-                : points // ignore: cast_nullable_to_non_nullable
-                      as List<TourPointModel>,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subtitle: null == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<TourPointModel>,
+    ) as $Val);
   }
 }
 
@@ -280,20 +252,18 @@ class _$TourModelCopyWithImpl<$Res, $Val extends TourModel>
 abstract class _$$TourModelImplCopyWith<$Res>
     implements $TourModelCopyWith<$Res> {
   factory _$$TourModelImplCopyWith(
-    _$TourModelImpl value,
-    $Res Function(_$TourModelImpl) then,
-  ) = __$$TourModelImplCopyWithImpl<$Res>;
+          _$TourModelImpl value, $Res Function(_$TourModelImpl) then) =
+      __$$TourModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String subtitle,
-    String description,
-    String coverImage,
-    int durationMinutes,
-    List<TourPointModel> points,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String subtitle,
+      String description,
+      String coverImage,
+      int durationMinutes,
+      List<TourPointModel> points});
 }
 
 /// @nodoc
@@ -301,12 +271,9 @@ class __$$TourModelImplCopyWithImpl<$Res>
     extends _$TourModelCopyWithImpl<$Res, _$TourModelImpl>
     implements _$$TourModelImplCopyWith<$Res> {
   __$$TourModelImplCopyWithImpl(
-    _$TourModelImpl _value,
-    $Res Function(_$TourModelImpl) _then,
-  ) : super(_value, _then);
+      _$TourModelImpl _value, $Res Function(_$TourModelImpl) _then)
+      : super(_value, _then);
 
-  /// Create a copy of TourModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -318,53 +285,51 @@ class __$$TourModelImplCopyWithImpl<$Res>
     Object? durationMinutes = null,
     Object? points = null,
   }) {
-    return _then(
-      _$TourModelImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        subtitle: null == subtitle
-            ? _value.subtitle
-            : subtitle // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-        coverImage: null == coverImage
-            ? _value.coverImage
-            : coverImage // ignore: cast_nullable_to_non_nullable
-                  as String,
-        durationMinutes: null == durationMinutes
-            ? _value.durationMinutes
-            : durationMinutes // ignore: cast_nullable_to_non_nullable
-                  as int,
-        points: null == points
-            ? _value._points
-            : points // ignore: cast_nullable_to_non_nullable
-                  as List<TourPointModel>,
-      ),
-    );
+    return _then(_$TourModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subtitle: null == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      points: null == points
+          ? _value._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<TourPointModel>,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TourModelImpl implements _TourModel {
-  const _$TourModelImpl({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.coverImage,
-    required this.durationMinutes,
-    required final List<TourPointModel> points,
-  }) : _points = points;
+  const _$TourModelImpl(
+      {required this.id,
+      required this.title,
+      required this.subtitle,
+      required this.description,
+      required this.coverImage,
+      required this.durationMinutes,
+      required final List<TourPointModel> points})
+      : _points = points;
 
   factory _$TourModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TourModelImplFromJson(json);
@@ -412,22 +377,19 @@ class _$TourModelImpl implements _TourModel {
             const DeepCollectionEquality().equals(other._points, _points));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    title,
-    subtitle,
-    description,
-    coverImage,
-    durationMinutes,
-    const DeepCollectionEquality().hash(_points),
-  );
+      runtimeType,
+      id,
+      title,
+      subtitle,
+      description,
+      coverImage,
+      durationMinutes,
+      const DeepCollectionEquality().hash(_points));
 
-  /// Create a copy of TourModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$TourModelImplCopyWith<_$TourModelImpl> get copyWith =>
@@ -435,20 +397,21 @@ class _$TourModelImpl implements _TourModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TourModelImplToJson(this);
+    return _$$TourModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _TourModel implements TourModel {
-  const factory _TourModel({
-    required final String id,
-    required final String title,
-    required final String subtitle,
-    required final String description,
-    required final String coverImage,
-    required final int durationMinutes,
-    required final List<TourPointModel> points,
-  }) = _$TourModelImpl;
+  const factory _TourModel(
+      {required final String id,
+      required final String title,
+      required final String subtitle,
+      required final String description,
+      required final String coverImage,
+      required final int durationMinutes,
+      required final List<TourPointModel> points}) = _$TourModelImpl;
 
   factory _TourModel.fromJson(Map<String, dynamic> json) =
       _$TourModelImpl.fromJson;
@@ -467,11 +430,8 @@ abstract class _TourModel implements TourModel {
   int get durationMinutes;
   @override
   List<TourPointModel> get points;
-
-  /// Create a copy of TourModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$TourModelImplCopyWith<_$TourModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -493,12 +453,8 @@ mixin _$TourPointModel {
   List<String> get connections => throw _privateConstructorUsedError;
   List<HotspotModel> get hotspots => throw _privateConstructorUsedError;
 
-  /// Serializes this TourPointModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of TourPointModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $TourPointModelCopyWith<TourPointModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -506,22 +462,20 @@ mixin _$TourPointModel {
 /// @nodoc
 abstract class $TourPointModelCopyWith<$Res> {
   factory $TourPointModelCopyWith(
-    TourPointModel value,
-    $Res Function(TourPointModel) then,
-  ) = _$TourPointModelCopyWithImpl<$Res, TourPointModel>;
+          TourPointModel value, $Res Function(TourPointModel) then) =
+      _$TourPointModelCopyWithImpl<$Res, TourPointModel>;
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String subtitle,
-    String description,
-    String panoramaImage,
-    String narrationAudio,
-    double yaw,
-    double pitch,
-    List<String> connections,
-    List<HotspotModel> hotspots,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String subtitle,
+      String description,
+      String panoramaImage,
+      String narrationAudio,
+      double yaw,
+      double pitch,
+      List<String> connections,
+      List<HotspotModel> hotspots});
 }
 
 /// @nodoc
@@ -534,8 +488,6 @@ class _$TourPointModelCopyWithImpl<$Res, $Val extends TourPointModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TourPointModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -550,75 +502,70 @@ class _$TourPointModelCopyWithImpl<$Res, $Val extends TourPointModel>
     Object? connections = null,
     Object? hotspots = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            subtitle: null == subtitle
-                ? _value.subtitle
-                : subtitle // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: null == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String,
-            panoramaImage: null == panoramaImage
-                ? _value.panoramaImage
-                : panoramaImage // ignore: cast_nullable_to_non_nullable
-                      as String,
-            narrationAudio: null == narrationAudio
-                ? _value.narrationAudio
-                : narrationAudio // ignore: cast_nullable_to_non_nullable
-                      as String,
-            yaw: null == yaw
-                ? _value.yaw
-                : yaw // ignore: cast_nullable_to_non_nullable
-                      as double,
-            pitch: null == pitch
-                ? _value.pitch
-                : pitch // ignore: cast_nullable_to_non_nullable
-                      as double,
-            connections: null == connections
-                ? _value.connections
-                : connections // ignore: cast_nullable_to_non_nullable
-                      as List<String>,
-            hotspots: null == hotspots
-                ? _value.hotspots
-                : hotspots // ignore: cast_nullable_to_non_nullable
-                      as List<HotspotModel>,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subtitle: null == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      panoramaImage: null == panoramaImage
+          ? _value.panoramaImage
+          : panoramaImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      narrationAudio: null == narrationAudio
+          ? _value.narrationAudio
+          : narrationAudio // ignore: cast_nullable_to_non_nullable
+              as String,
+      yaw: null == yaw
+          ? _value.yaw
+          : yaw // ignore: cast_nullable_to_non_nullable
+              as double,
+      pitch: null == pitch
+          ? _value.pitch
+          : pitch // ignore: cast_nullable_to_non_nullable
+              as double,
+      connections: null == connections
+          ? _value.connections
+          : connections // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      hotspots: null == hotspots
+          ? _value.hotspots
+          : hotspots // ignore: cast_nullable_to_non_nullable
+              as List<HotspotModel>,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$TourPointModelImplCopyWith<$Res>
     implements $TourPointModelCopyWith<$Res> {
-  factory _$$TourPointModelImplCopyWith(
-    _$TourPointModelImpl value,
-    $Res Function(_$TourPointModelImpl) then,
-  ) = __$$TourPointModelImplCopyWithImpl<$Res>;
+  factory _$$TourPointModelImplCopyWith(_$TourPointModelImpl value,
+          $Res Function(_$TourPointModelImpl) then) =
+      __$$TourPointModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String subtitle,
-    String description,
-    String panoramaImage,
-    String narrationAudio,
-    double yaw,
-    double pitch,
-    List<String> connections,
-    List<HotspotModel> hotspots,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String subtitle,
+      String description,
+      String panoramaImage,
+      String narrationAudio,
+      double yaw,
+      double pitch,
+      List<String> connections,
+      List<HotspotModel> hotspots});
 }
 
 /// @nodoc
@@ -626,12 +573,9 @@ class __$$TourPointModelImplCopyWithImpl<$Res>
     extends _$TourPointModelCopyWithImpl<$Res, _$TourPointModelImpl>
     implements _$$TourPointModelImplCopyWith<$Res> {
   __$$TourPointModelImplCopyWithImpl(
-    _$TourPointModelImpl _value,
-    $Res Function(_$TourPointModelImpl) _then,
-  ) : super(_value, _then);
+      _$TourPointModelImpl _value, $Res Function(_$TourPointModelImpl) _then)
+      : super(_value, _then);
 
-  /// Create a copy of TourPointModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -646,69 +590,67 @@ class __$$TourPointModelImplCopyWithImpl<$Res>
     Object? connections = null,
     Object? hotspots = null,
   }) {
-    return _then(
-      _$TourPointModelImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        subtitle: null == subtitle
-            ? _value.subtitle
-            : subtitle // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-        panoramaImage: null == panoramaImage
-            ? _value.panoramaImage
-            : panoramaImage // ignore: cast_nullable_to_non_nullable
-                  as String,
-        narrationAudio: null == narrationAudio
-            ? _value.narrationAudio
-            : narrationAudio // ignore: cast_nullable_to_non_nullable
-                  as String,
-        yaw: null == yaw
-            ? _value.yaw
-            : yaw // ignore: cast_nullable_to_non_nullable
-                  as double,
-        pitch: null == pitch
-            ? _value.pitch
-            : pitch // ignore: cast_nullable_to_non_nullable
-                  as double,
-        connections: null == connections
-            ? _value._connections
-            : connections // ignore: cast_nullable_to_non_nullable
-                  as List<String>,
-        hotspots: null == hotspots
-            ? _value._hotspots
-            : hotspots // ignore: cast_nullable_to_non_nullable
-                  as List<HotspotModel>,
-      ),
-    );
+    return _then(_$TourPointModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subtitle: null == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      panoramaImage: null == panoramaImage
+          ? _value.panoramaImage
+          : panoramaImage // ignore: cast_nullable_to_non_nullable
+              as String,
+      narrationAudio: null == narrationAudio
+          ? _value.narrationAudio
+          : narrationAudio // ignore: cast_nullable_to_non_nullable
+              as String,
+      yaw: null == yaw
+          ? _value.yaw
+          : yaw // ignore: cast_nullable_to_non_nullable
+              as double,
+      pitch: null == pitch
+          ? _value.pitch
+          : pitch // ignore: cast_nullable_to_non_nullable
+              as double,
+      connections: null == connections
+          ? _value._connections
+          : connections // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      hotspots: null == hotspots
+          ? _value._hotspots
+          : hotspots // ignore: cast_nullable_to_non_nullable
+              as List<HotspotModel>,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TourPointModelImpl implements _TourPointModel {
-  const _$TourPointModelImpl({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.panoramaImage,
-    required this.narrationAudio,
-    required this.yaw,
-    required this.pitch,
-    required final List<String> connections,
-    required final List<HotspotModel> hotspots,
-  }) : _connections = connections,
-       _hotspots = hotspots;
+  const _$TourPointModelImpl(
+      {required this.id,
+      required this.title,
+      required this.subtitle,
+      required this.description,
+      required this.panoramaImage,
+      required this.narrationAudio,
+      required this.yaw,
+      required this.pitch,
+      required final List<String> connections,
+      required final List<HotspotModel> hotspots})
+      : _connections = connections,
+        _hotspots = hotspots;
 
   factory _$TourPointModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TourPointModelImplFromJson(json);
@@ -767,59 +709,53 @@ class _$TourPointModelImpl implements _TourPointModel {
                 other.narrationAudio == narrationAudio) &&
             (identical(other.yaw, yaw) || other.yaw == yaw) &&
             (identical(other.pitch, pitch) || other.pitch == pitch) &&
-            const DeepCollectionEquality().equals(
-              other._connections,
-              _connections,
-            ) &&
+            const DeepCollectionEquality()
+                .equals(other._connections, _connections) &&
             const DeepCollectionEquality().equals(other._hotspots, _hotspots));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    title,
-    subtitle,
-    description,
-    panoramaImage,
-    narrationAudio,
-    yaw,
-    pitch,
-    const DeepCollectionEquality().hash(_connections),
-    const DeepCollectionEquality().hash(_hotspots),
-  );
+      runtimeType,
+      id,
+      title,
+      subtitle,
+      description,
+      panoramaImage,
+      narrationAudio,
+      yaw,
+      pitch,
+      const DeepCollectionEquality().hash(_connections),
+      const DeepCollectionEquality().hash(_hotspots));
 
-  /// Create a copy of TourPointModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$TourPointModelImplCopyWith<_$TourPointModelImpl> get copyWith =>
       __$$TourPointModelImplCopyWithImpl<_$TourPointModelImpl>(
-        this,
-        _$identity,
-      );
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TourPointModelImplToJson(this);
+    return _$$TourPointModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _TourPointModel implements TourPointModel {
-  const factory _TourPointModel({
-    required final String id,
-    required final String title,
-    required final String subtitle,
-    required final String description,
-    required final String panoramaImage,
-    required final String narrationAudio,
-    required final double yaw,
-    required final double pitch,
-    required final List<String> connections,
-    required final List<HotspotModel> hotspots,
-  }) = _$TourPointModelImpl;
+  const factory _TourPointModel(
+      {required final String id,
+      required final String title,
+      required final String subtitle,
+      required final String description,
+      required final String panoramaImage,
+      required final String narrationAudio,
+      required final double yaw,
+      required final double pitch,
+      required final List<String> connections,
+      required final List<HotspotModel> hotspots}) = _$TourPointModelImpl;
 
   factory _TourPointModel.fromJson(Map<String, dynamic> json) =
       _$TourPointModelImpl.fromJson;
@@ -844,11 +780,8 @@ abstract class _TourPointModel implements TourPointModel {
   List<String> get connections;
   @override
   List<HotspotModel> get hotspots;
-
-  /// Create a copy of TourPointModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$TourPointModelImplCopyWith<_$TourPointModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -866,12 +799,8 @@ mixin _$HotspotModel {
   double get pitch => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
 
-  /// Serializes this HotspotModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of HotspotModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $HotspotModelCopyWith<HotspotModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -879,18 +808,16 @@ mixin _$HotspotModel {
 /// @nodoc
 abstract class $HotspotModelCopyWith<$Res> {
   factory $HotspotModelCopyWith(
-    HotspotModel value,
-    $Res Function(HotspotModel) then,
-  ) = _$HotspotModelCopyWithImpl<$Res, HotspotModel>;
+          HotspotModel value, $Res Function(HotspotModel) then) =
+      _$HotspotModelCopyWithImpl<$Res, HotspotModel>;
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String description,
-    double yaw,
-    double pitch,
-    String icon,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      double yaw,
+      double pitch,
+      String icon});
 }
 
 /// @nodoc
@@ -903,8 +830,6 @@ class _$HotspotModelCopyWithImpl<$Res, $Val extends HotspotModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of HotspotModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -915,35 +840,32 @@ class _$HotspotModelCopyWithImpl<$Res, $Val extends HotspotModel>
     Object? pitch = null,
     Object? icon = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: null == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String,
-            yaw: null == yaw
-                ? _value.yaw
-                : yaw // ignore: cast_nullable_to_non_nullable
-                      as double,
-            pitch: null == pitch
-                ? _value.pitch
-                : pitch // ignore: cast_nullable_to_non_nullable
-                      as double,
-            icon: null == icon
-                ? _value.icon
-                : icon // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      yaw: null == yaw
+          ? _value.yaw
+          : yaw // ignore: cast_nullable_to_non_nullable
+              as double,
+      pitch: null == pitch
+          ? _value.pitch
+          : pitch // ignore: cast_nullable_to_non_nullable
+              as double,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
   }
 }
 
@@ -951,19 +873,17 @@ class _$HotspotModelCopyWithImpl<$Res, $Val extends HotspotModel>
 abstract class _$$HotspotModelImplCopyWith<$Res>
     implements $HotspotModelCopyWith<$Res> {
   factory _$$HotspotModelImplCopyWith(
-    _$HotspotModelImpl value,
-    $Res Function(_$HotspotModelImpl) then,
-  ) = __$$HotspotModelImplCopyWithImpl<$Res>;
+          _$HotspotModelImpl value, $Res Function(_$HotspotModelImpl) then) =
+      __$$HotspotModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String title,
-    String description,
-    double yaw,
-    double pitch,
-    String icon,
-  });
+  $Res call(
+      {String id,
+      String title,
+      String description,
+      double yaw,
+      double pitch,
+      String icon});
 }
 
 /// @nodoc
@@ -971,12 +891,9 @@ class __$$HotspotModelImplCopyWithImpl<$Res>
     extends _$HotspotModelCopyWithImpl<$Res, _$HotspotModelImpl>
     implements _$$HotspotModelImplCopyWith<$Res> {
   __$$HotspotModelImplCopyWithImpl(
-    _$HotspotModelImpl _value,
-    $Res Function(_$HotspotModelImpl) _then,
-  ) : super(_value, _then);
+      _$HotspotModelImpl _value, $Res Function(_$HotspotModelImpl) _then)
+      : super(_value, _then);
 
-  /// Create a copy of HotspotModel
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -987,48 +904,45 @@ class __$$HotspotModelImplCopyWithImpl<$Res>
     Object? pitch = null,
     Object? icon = null,
   }) {
-    return _then(
-      _$HotspotModelImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-        yaw: null == yaw
-            ? _value.yaw
-            : yaw // ignore: cast_nullable_to_non_nullable
-                  as double,
-        pitch: null == pitch
-            ? _value.pitch
-            : pitch // ignore: cast_nullable_to_non_nullable
-                  as double,
-        icon: null == icon
-            ? _value.icon
-            : icon // ignore: cast_nullable_to_non_nullable
-                  as String,
-      ),
-    );
+    return _then(_$HotspotModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      yaw: null == yaw
+          ? _value.yaw
+          : yaw // ignore: cast_nullable_to_non_nullable
+              as double,
+      pitch: null == pitch
+          ? _value.pitch
+          : pitch // ignore: cast_nullable_to_non_nullable
+              as double,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$HotspotModelImpl implements _HotspotModel {
-  const _$HotspotModelImpl({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.yaw,
-    required this.pitch,
-    required this.icon,
-  });
+  const _$HotspotModelImpl(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.yaw,
+      required this.pitch,
+      required this.icon});
 
   factory _$HotspotModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HotspotModelImplFromJson(json);
@@ -1065,14 +979,12 @@ class _$HotspotModelImpl implements _HotspotModel {
             (identical(other.icon, icon) || other.icon == icon));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, title, description, yaw, pitch, icon);
 
-  /// Create a copy of HotspotModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$HotspotModelImplCopyWith<_$HotspotModelImpl> get copyWith =>
@@ -1080,19 +992,20 @@ class _$HotspotModelImpl implements _HotspotModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HotspotModelImplToJson(this);
+    return _$$HotspotModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _HotspotModel implements HotspotModel {
-  const factory _HotspotModel({
-    required final String id,
-    required final String title,
-    required final String description,
-    required final double yaw,
-    required final double pitch,
-    required final String icon,
-  }) = _$HotspotModelImpl;
+  const factory _HotspotModel(
+      {required final String id,
+      required final String title,
+      required final String description,
+      required final double yaw,
+      required final double pitch,
+      required final String icon}) = _$HotspotModelImpl;
 
   factory _HotspotModel.fromJson(Map<String, dynamic> json) =
       _$HotspotModelImpl.fromJson;
@@ -1109,11 +1022,8 @@ abstract class _HotspotModel implements HotspotModel {
   double get pitch;
   @override
   String get icon;
-
-  /// Create a copy of HotspotModel
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$HotspotModelImplCopyWith<_$HotspotModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

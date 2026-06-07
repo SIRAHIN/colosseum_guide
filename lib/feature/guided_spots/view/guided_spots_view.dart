@@ -19,6 +19,17 @@ class GuidedSpotsView extends ConsumerWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  context.pushNamed(
+                    languageSelectViewName,
+                    extra: guidedSpotsViewName,
+                  );
+                },
+                icon: const Icon(Icons.language),
+              ),
+            ],
             expandedHeight: 160,
             pinned: true,
             backgroundColor: const Color(0xFF1A1A2E),
@@ -45,7 +56,7 @@ class GuidedSpotsView extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return  guidedSpotsState.tours.isEmpty
+                return guidedSpotsState.tours.isEmpty
                     ? const Center(
                         child: CircularProgressIndicator(
                           color: Color(0xFFFFC107),
@@ -53,15 +64,20 @@ class GuidedSpotsView extends ConsumerWidget {
                       )
                     : _TourCard(
                         tour: guidedSpotsState.tours[index],
-                        onTap: () => guidedSpotsState.tours[index].points.isEmpty ? toastification.show(
-                           title: Text("Oops! This tour is currently unavailable."),
-                          type: ToastificationType.warning,
-                          style: ToastificationStyle.flat,
-                          autoCloseDuration: Duration(seconds: 3),
-                        ) : _navigateToGuide(
-                          context,
-                          guidedSpotsState.tours[index],
-                        ),
+                        onTap: () =>
+                            guidedSpotsState.tours[index].points.isEmpty
+                            ? toastification.show(
+                                title: Text(
+                                  "Oops! This tour is currently unavailable.",
+                                ),
+                                type: ToastificationType.warning,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: Duration(seconds: 3),
+                              )
+                            : _navigateToGuide(
+                                context,
+                                guidedSpotsState.tours[index],
+                              ),
                       );
               }, childCount: guidedSpotsState.tours.length),
             ),

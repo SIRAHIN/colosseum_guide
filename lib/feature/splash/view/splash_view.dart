@@ -1,15 +1,17 @@
 import 'package:colosseum_guide/core/route/route_manager.dart';
+import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SplashView extends StatefulWidget {
+class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  ConsumerState<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView>
+class _SplashViewState extends ConsumerState<SplashView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
@@ -40,9 +42,15 @@ class _SplashViewState extends State<SplashView>
 
     _controller.forward();
 
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 2500), () async {
       if (mounted) {
-        context.goNamed(guidedLandingViewName);
+        final language = await ref.read(localLanguageDataProvider).getLanguage();
+        print(language.selectedLanguage);
+        if (language.isLanguageSelected) {
+          context.goNamed(guidedLandingViewName);
+        } else {
+          context.goNamed(languageSelectViewName, extra: guidedLandingViewName);
+        }
       }
     });
   }

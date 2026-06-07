@@ -7,7 +7,7 @@ part of 'guided_spots_details_view_model.dart';
 // **************************************************************************
 
 String _$guidedSpotsDetailsViewModelHash() =>
-    r'8eef22824d3fcdf2d0bf08a71036738f9c3ce322';
+    r'1a44fd7f3560af67cb8dba8e29a98c0299de05c8';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +34,9 @@ abstract class _$GuidedSpotsDetailsViewModel
     extends BuildlessAutoDisposeNotifier<GuidedSpotsDetailsState> {
   late final List<TourPointModel> tourPoints;
 
-  GuidedSpotsDetailsState build(List<TourPointModel> tourPoints);
+  GuidedSpotsDetailsState build(
+    List<TourPointModel> tourPoints,
+  );
 }
 
 /// See also [GuidedSpotsDetailsViewModel].
@@ -48,15 +50,21 @@ class GuidedSpotsDetailsViewModelFamily
   const GuidedSpotsDetailsViewModelFamily();
 
   /// See also [GuidedSpotsDetailsViewModel].
-  GuidedSpotsDetailsViewModelProvider call(List<TourPointModel> tourPoints) {
-    return GuidedSpotsDetailsViewModelProvider(tourPoints);
+  GuidedSpotsDetailsViewModelProvider call(
+    List<TourPointModel> tourPoints,
+  ) {
+    return GuidedSpotsDetailsViewModelProvider(
+      tourPoints,
+    );
   }
 
   @override
   GuidedSpotsDetailsViewModelProvider getProviderOverride(
     covariant GuidedSpotsDetailsViewModelProvider provider,
   ) {
-    return call(provider.tourPoints);
+    return call(
+      provider.tourPoints,
+    );
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -76,25 +84,24 @@ class GuidedSpotsDetailsViewModelFamily
 
 /// See also [GuidedSpotsDetailsViewModel].
 class GuidedSpotsDetailsViewModelProvider
-    extends
-        AutoDisposeNotifierProviderImpl<
-          GuidedSpotsDetailsViewModel,
-          GuidedSpotsDetailsState
-        > {
+    extends AutoDisposeNotifierProviderImpl<GuidedSpotsDetailsViewModel,
+        GuidedSpotsDetailsState> {
   /// See also [GuidedSpotsDetailsViewModel].
-  GuidedSpotsDetailsViewModelProvider(List<TourPointModel> tourPoints)
-    : this._internal(
-        () => GuidedSpotsDetailsViewModel()..tourPoints = tourPoints,
-        from: guidedSpotsDetailsViewModelProvider,
-        name: r'guidedSpotsDetailsViewModelProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$guidedSpotsDetailsViewModelHash,
-        dependencies: GuidedSpotsDetailsViewModelFamily._dependencies,
-        allTransitiveDependencies:
-            GuidedSpotsDetailsViewModelFamily._allTransitiveDependencies,
-        tourPoints: tourPoints,
-      );
+  GuidedSpotsDetailsViewModelProvider(
+    List<TourPointModel> tourPoints,
+  ) : this._internal(
+          () => GuidedSpotsDetailsViewModel()..tourPoints = tourPoints,
+          from: guidedSpotsDetailsViewModelProvider,
+          name: r'guidedSpotsDetailsViewModelProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$guidedSpotsDetailsViewModelHash,
+          dependencies: GuidedSpotsDetailsViewModelFamily._dependencies,
+          allTransitiveDependencies:
+              GuidedSpotsDetailsViewModelFamily._allTransitiveDependencies,
+          tourPoints: tourPoints,
+        );
 
   GuidedSpotsDetailsViewModelProvider._internal(
     super._createNotifier, {
@@ -112,7 +119,9 @@ class GuidedSpotsDetailsViewModelProvider
   GuidedSpotsDetailsState runNotifierBuild(
     covariant GuidedSpotsDetailsViewModel notifier,
   ) {
-    return notifier.build(tourPoints);
+    return notifier.build(
+      tourPoints,
+    );
   }
 
   @override
@@ -132,11 +141,8 @@ class GuidedSpotsDetailsViewModelProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<
-    GuidedSpotsDetailsViewModel,
-    GuidedSpotsDetailsState
-  >
-  createElement() {
+  AutoDisposeNotifierProviderElement<GuidedSpotsDetailsViewModel,
+      GuidedSpotsDetailsState> createElement() {
     return _GuidedSpotsDetailsViewModelProviderElement(this);
   }
 
@@ -155,8 +161,6 @@ class GuidedSpotsDetailsViewModelProvider
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin GuidedSpotsDetailsViewModelRef
     on AutoDisposeNotifierProviderRef<GuidedSpotsDetailsState> {
   /// The parameter `tourPoints` of this provider.
@@ -164,18 +168,13 @@ mixin GuidedSpotsDetailsViewModelRef
 }
 
 class _GuidedSpotsDetailsViewModelProviderElement
-    extends
-        AutoDisposeNotifierProviderElement<
-          GuidedSpotsDetailsViewModel,
-          GuidedSpotsDetailsState
-        >
-    with GuidedSpotsDetailsViewModelRef {
+    extends AutoDisposeNotifierProviderElement<GuidedSpotsDetailsViewModel,
+        GuidedSpotsDetailsState> with GuidedSpotsDetailsViewModelRef {
   _GuidedSpotsDetailsViewModelProviderElement(super.provider);
 
   @override
   List<TourPointModel> get tourPoints =>
       (origin as GuidedSpotsDetailsViewModelProvider).tourPoints;
 }
-
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
