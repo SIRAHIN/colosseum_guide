@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/view_model/guided_spots_details_view_model.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/widgets/audio_player_widget.dart';
@@ -30,6 +31,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
   Widget build(BuildContext context) {
     final state = ref.watch(guidedSpotsDetailsViewModelProvider(widget.tourPoints));
     final notifier = ref.read(guidedSpotsDetailsViewModelProvider(widget.tourPoints).notifier);
+    final strings = ref.watch(appStringsProvider);
 
     if (state.loading) {
       return const Scaffold(
@@ -98,7 +100,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          'Stop ${state.currentIndex + 1} / ${state.tourPoints.length}',
+                          '${strings.stop} ${state.currentIndex + 1} / ${state.tourPoints.length}',
                           style: const TextStyle(
                             color: Color(0xFFFFC107),
                             fontSize: 14,
@@ -204,7 +206,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                   ? () => notifier.goToStop(state.currentIndex - 1)
                                   : null,
                               icon: const Icon(Icons.arrow_back, size: 16),
-                              label: const Text('Previous'),
+                              label: Text(strings.previous),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.white70,
                                 side: const BorderSide(color: Colors.white24),
@@ -221,7 +223,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                   ? () => notifier.goToStop(state.currentIndex + 1)
                                   : null,
                               icon: const Icon(Icons.arrow_forward, size: 16),
-                              label: const Text('Next'),
+                              label: Text(strings.next),
                               style: FilledButton.styleFrom(
                                 backgroundColor: const Color(0xFFFFC107),
                                 foregroundColor: Colors.black,

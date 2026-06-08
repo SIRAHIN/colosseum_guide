@@ -1,4 +1,5 @@
 import 'package:colosseum_guide/core/data/guide_data.dart';
+import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots/view_model/guided_spots_view_model.dart';
@@ -13,6 +14,7 @@ class GuidedSpotsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final guidedSpotsState = ref.watch(guidedSpotsViewModelProvider);
+    final strings = ref.watch(appStringsProvider);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F0F1A),
@@ -34,8 +36,8 @@ class GuidedSpotsView extends ConsumerWidget {
             pinned: true,
             backgroundColor: const Color(0xFF1A1A2E),
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                'Explore',
+              title: Text(
+                strings.explore,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -64,11 +66,12 @@ class GuidedSpotsView extends ConsumerWidget {
                       )
                     : _TourCard(
                         tour: guidedSpotsState.tours[index],
+                        strings: strings,
                         onTap: () =>
                             guidedSpotsState.tours[index].points.isEmpty
                             ? toastification.show(
                                 title: Text(
-                                  "Oops! This tour is currently unavailable.",
+                                  strings.tourUnavailable,
                                 ),
                                 type: ToastificationType.warning,
                                 style: ToastificationStyle.flat,
@@ -94,9 +97,10 @@ void _navigateToGuide(BuildContext context, TourModel tour) {
 
 class _TourCard extends StatelessWidget {
   final TourModel tour;
+  final AppStrings strings;
   final VoidCallback onTap;
 
-  const _TourCard({required this.tour, required this.onTap});
+  const _TourCard({required this.tour, required this.strings, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +172,7 @@ class _TourCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${tour.durationMinutes} min',
+                            '${tour.durationMinutes} ${strings.min}',
                             style: const TextStyle(
                               color: Color(0xFFFFC107),
                               fontSize: 12,
@@ -202,7 +206,7 @@ class _TourCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${tour.points.length} stops',
+                            '${tour.points.length} ${strings.stops}',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -253,7 +257,7 @@ class _TourCard extends StatelessWidget {
                     Row(
                       children: [
                         const Spacer(),
-                        _StartButton(onTap: onTap),
+                        _StartButton(strings: strings, onTap: onTap),
                       ],
                     ),
                   ],
@@ -268,16 +272,17 @@ class _TourCard extends StatelessWidget {
 }
 
 class _StartButton extends StatelessWidget {
+  final AppStrings strings;
   final VoidCallback onTap;
 
-  const _StartButton({required this.onTap});
+  const _StartButton({required this.strings, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return FilledButton.icon(
       onPressed: onTap,
       icon: const Icon(Icons.play_arrow, size: 18),
-      label: const Text('Start Tour'),
+      label: Text(strings.startTour),
       style: FilledButton.styleFrom(
         backgroundColor: const Color(0xFFFFC107),
         foregroundColor: Colors.black,

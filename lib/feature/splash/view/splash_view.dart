@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
 import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _SplashViewState extends ConsumerState<SplashView>
 
   @override
   Widget build(BuildContext context) {
+    final strings = ref.watch(appStringsProvider);
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E),
       body: Center(
@@ -93,9 +95,9 @@ class _SplashViewState extends ConsumerState<SplashView>
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const Text(
-                    'Colosseum Guide',
-                    style: TextStyle(
+                  Text(
+                    strings.colosseumGuide,
+                    style: const TextStyle(
                       color: Color(0xFFFFC107),
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -104,7 +106,7 @@ class _SplashViewState extends ConsumerState<SplashView>
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Your journey through history',
+                    strings.yourJourneyThroughHistory,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.5),
                       fontSize: 14,

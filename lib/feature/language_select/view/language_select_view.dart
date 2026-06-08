@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
 import 'package:colosseum_guide/feature/language_select/components/language_list_tile.dart';
 import 'package:colosseum_guide/feature/language_select/data/static_languages_data/static_languages_data.dart';
@@ -28,6 +29,7 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = ref.watch(appStringsProvider);
     final staticlanguagesdata = ref.watch(staticLanguagesProvider);
     final languageSelectState = ref.watch(languageSelectViewModelProvider);
 
@@ -50,8 +52,8 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
                     color: Color(0xFFFFC107),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Select Language',
+                  Text(
+                    strings.selectLanguage,
                     style: TextStyle(
                       color: Color(0xFFFFC107),
                       fontSize: 24,
@@ -60,7 +62,7 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Choose your preferred language',
+                    strings.chooseLanguage,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.5),
                       fontSize: 14,
@@ -80,7 +82,7 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
                 child: TextButton(
                   onPressed: _onSkip,
                   child: Text(
-                    'Skip',
+                    strings.skip,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.5),
                       fontSize: 14,
@@ -129,8 +131,8 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Next',
+                  child: Text(
+                    strings.next,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
