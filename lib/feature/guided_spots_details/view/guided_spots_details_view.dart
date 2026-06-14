@@ -1,4 +1,5 @@
 import 'package:colosseum_guide/core/localization/app_localizations.dart';
+import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/view_model/guided_spots_details_view_model.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/widgets/audio_player_widget.dart';
@@ -34,10 +35,13 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
     final strings = ref.watch(appStringsProvider);
 
     if (state.loading) {
-      return const Scaffold(
-        backgroundColor: Colors.black,
+      return Scaffold(
+        backgroundColor: AppColors.background,
         body: Center(
-          child: CircularProgressIndicator(color: Color(0xFFFFC107)),
+          child: CircularProgressIndicator(
+            color: AppColors.gold.withValues(alpha: 0.6),
+            strokeWidth: 2,
+          ),
         ),
       );
     }
@@ -45,7 +49,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
     final currentLocationPoint = state.tourPoints[state.currentIndex];
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           // Full-screen 360° panorama
@@ -59,12 +63,15 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
             left: 0,
             right: 0,
             child: Container(
-              height: 120,
-              decoration: const BoxDecoration(
+              height: 110,
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.black54, Colors.transparent],
+                  colors: [
+                    AppColors.background.withValues(alpha: 0.7),
+                    Colors.transparent,
+                  ],
                 ),
               ),
               child: SafeArea(
@@ -81,30 +88,40 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: Colors.black45,
-                            borderRadius: BorderRadius.circular(20),
+                            color: AppColors.overlayLight,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: AppColors.border.withValues(alpha: 0.3),
+                              width: 0.5,
+                            ),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back,
-                            color: Colors.white,
+                            color: AppColors.textPrimary,
+                            size: 20,
                           ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                          horizontal: 14,
+                          vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black45,
-                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.overlayLight,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: AppColors.border.withValues(alpha: 0.3),
+                            width: 0.5,
+                          ),
                         ),
                         child: Text(
                           '${strings.stop} ${state.currentIndex + 1} / ${state.tourPoints.length}',
-                          style: const TextStyle(
-                            color: Color(0xFFFFC107),
-                            fontSize: 14,
+                          style: TextStyle(
+                            color: AppColors.gold,
+                            fontSize: 13,
                             fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ),
@@ -122,9 +139,13 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
             maxChildSize: 0.7,
             builder: (context, scrollController) {
               return Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF1A1A2E),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  border: Border.all(
+                    color: AppColors.border,
+                    width: 0.5,
+                  ),
                 ),
                 child: ListView(
                   controller: scrollController,
@@ -134,10 +155,10 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                     Center(
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
-                        width: 40,
-                        height: 4,
+                        width: 36,
+                        height: 3,
                         decoration: BoxDecoration(
-                          color: Colors.white24,
+                          color: AppColors.textDisabled,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -148,10 +169,11 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         currentLocationPoint.title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
                         ),
                       ),
                     ),
@@ -160,9 +182,9 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                         padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
                         child: Text(
                           currentLocationPoint.subtitle,
-                          style: const TextStyle(
-                            color: Color(0xFFFFC107),
-                            fontSize: 14,
+                          style: TextStyle(
+                            color: AppColors.gold,
+                            fontSize: 13,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -173,10 +195,10 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
                       child: Text(
                         currentLocationPoint.description,
-                        style: const TextStyle(
-                          color: Colors.white70,
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
                           fontSize: 14,
-                          height: 1.5,
+                          height: 1.6,
                         ),
                       ),
                     ),
@@ -186,8 +208,12 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(16),
+                        color: AppColors.background,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: AppColors.border,
+                          width: 0.5,
+                        ),
                       ),
                       child: AudioPlayerWidget(
                         player: notifier.audioPlayer,
@@ -207,13 +233,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                   : null,
                               icon: const Icon(Icons.arrow_back, size: 16),
                               label: Text(strings.previous),
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white70,
-                                side: const BorderSide(color: Colors.white24),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -225,10 +244,12 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                               icon: const Icon(Icons.arrow_forward, size: 16),
                               label: Text(strings.next),
                               style: FilledButton.styleFrom(
-                                backgroundColor: const Color(0xFFFFC107),
-                                foregroundColor: Colors.black,
+                                backgroundColor: AppColors.gold,
+                                foregroundColor: AppColors.background,
+                                disabledBackgroundColor: AppColors.goldDark.withValues(alpha: 0.3),
+                                disabledForegroundColor: AppColors.textDisabled,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),

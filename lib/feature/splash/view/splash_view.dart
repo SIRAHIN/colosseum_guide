@@ -1,5 +1,6 @@
 import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
+import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,20 +25,20 @@ class _SplashViewState extends ConsumerState<SplashView>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1400),
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+    _scaleAnimation = Tween<double>(begin: 0.6, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.elasticOut,
+        curve: Curves.easeOutBack,
       ),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(0.3, 1.0, curve: Curves.easeIn),
+        curve: const Interval(0.2, 0.8, curve: Curves.easeIn),
       ),
     );
 
@@ -46,7 +47,6 @@ class _SplashViewState extends ConsumerState<SplashView>
     Future.delayed(const Duration(milliseconds: 2500), () async {
       if (mounted) {
         final language = await ref.read(localLanguageDataProvider).getLanguage();
-        print(language.selectedLanguage);
         if (language.isLanguageSelected) {
           context.goNamed(guidedLandingViewName);
         } else {
@@ -66,7 +66,7 @@ class _SplashViewState extends ConsumerState<SplashView>
   Widget build(BuildContext context) {
     final strings = ref.watch(appStringsProvider);
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E),
+      backgroundColor: AppColors.background,
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -79,47 +79,71 @@ class _SplashViewState extends ConsumerState<SplashView>
                   Transform.scale(
                     scale: _scaleAnimation.value,
                     child: Container(
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(28),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            AppColors.surfaceHigh,
+                            AppColors.surface,
+                          ],
+                        ),
                         border: Border.all(
-                          color: const Color(0xFFFFC107).withValues(alpha: 0.3),
-                          width: 2,
+                          color: AppColors.gold.withValues(alpha: 0.25),
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.gold.withValues(alpha: 0.08),
+                            blurRadius: 40,
+                            spreadRadius: 8,
+                          ),
+                        ],
+                      ),
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => LinearGradient(
+                          colors: [AppColors.goldLight, AppColors.gold, AppColors.bronze],
+                        ).createShader(bounds),
+                        child: const Icon(
+                          Icons.stadium,
+                          size: 72,
+                          color: Colors.white,
                         ),
                       ),
-                      child: const Icon(
-                        Icons.stadium,
-                        size: 80,
-                        color: Color(0xFFFFC107),
-                      ),
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 36),
                   Text(
                     strings.colosseumGuide,
-                    style: const TextStyle(
-                      color: Color(0xFFFFC107),
+                    style: TextStyle(
+                      color: AppColors.gold,
                       fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 3,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
+                  Container(
+                    width: 48,
+                    height: 1,
+                    color: AppColors.gold.withValues(alpha: 0.3),
+                  ),
+                  const SizedBox(height: 12),
                   Text(
                     strings.yourJourneyThroughHistory,
                     style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.5),
-                      fontSize: 14,
-                      letterSpacing: 1.5,
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                      letterSpacing: 2.5,
                     ),
                   ),
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 56),
                   SizedBox(
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white.withValues(alpha: 0.3),
+                      strokeWidth: 1.5,
+                      color: AppColors.gold.withValues(alpha: 0.4),
                     ),
                   ),
                 ],

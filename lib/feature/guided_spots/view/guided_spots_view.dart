@@ -1,6 +1,6 @@
-import 'package:colosseum_guide/core/data/guide_data.dart';
 import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
+import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots/view_model/guided_spots_view_model.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class GuidedSpotsView extends ConsumerWidget {
     final strings = ref.watch(appStringsProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F0F1A),
+      backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -29,26 +29,31 @@ class GuidedSpotsView extends ConsumerWidget {
                     extra: guidedSpotsViewName,
                   );
                 },
-                icon: const Icon(Icons.language),
+                icon: const Icon(Icons.language, size: 22),
               ),
             ],
-            expandedHeight: 160,
+            expandedHeight: 140,
             pinned: true,
-            backgroundColor: const Color(0xFF1A1A2E),
+            backgroundColor: AppColors.surface,
+            surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 strings.explore,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
                 ),
               ),
               background: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF1A1A2E), Color(0xFF16213E)],
+                    colors: [
+                      AppColors.surfaceHigh,
+                      AppColors.surface,
+                    ],
                   ),
                 ),
               ),
@@ -59,9 +64,13 @@ class GuidedSpotsView extends ConsumerWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return guidedSpotsState.tours.isEmpty
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: Color(0xFFFFC107),
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 60),
+                          child: CircularProgressIndicator(
+                            color: AppColors.gold.withValues(alpha: 0.6),
+                            strokeWidth: 2,
+                          ),
                         ),
                       )
                     : _TourCard(
@@ -107,8 +116,8 @@ class _TourCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Material(
-        color: const Color(0xFF1A1A2E),
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
@@ -124,59 +133,63 @@ class _TourCard extends StatelessWidget {
                       tour.coverImage,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => Container(
-                        color: const Color(0xFF16213E),
-                        child: const Icon(
+                        color: AppColors.surfaceHigh,
+                        child: Icon(
                           Icons.photo_camera_outlined,
-                          color: Colors.white24,
-                          size: 48,
+                          color: AppColors.textDisabled,
+                          size: 40,
                         ),
                       ),
                     ),
                   ),
-                  // Bottom gradient for text readability
+                  // Warm bottom gradient
                   Positioned(
                     left: 0,
                     right: 0,
                     bottom: 0,
                     child: Container(
                       height: 80,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, Color(0xCC1A1A2E)],
+                          colors: [Colors.transparent, AppColors.surface.withValues(alpha: 0.9)],
                         ),
                       ),
                     ),
                   ),
                   // Duration badge
                   Positioned(
-                    top: 12,
-                    right: 12,
+                    top: 10,
+                    right: 10,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                        horizontal: 8,
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.overlay,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: AppColors.border.withValues(alpha: 0.3),
+                          width: 0.5,
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.schedule,
-                            color: Color(0xFFFFC107),
-                            size: 14,
+                            color: AppColors.gold,
+                            size: 12,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             '${tour.durationMinutes} ${strings.min}',
-                            style: const TextStyle(
-                              color: Color(0xFFFFC107),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                            style: TextStyle(
+                              color: AppColors.gold,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
@@ -185,32 +198,36 @@ class _TourCard extends StatelessWidget {
                   ),
                   // Stops count badge
                   Positioned(
-                    top: 12,
-                    left: 12,
+                    top: 10,
+                    left: 10,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                        horizontal: 8,
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.overlay,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: AppColors.border.withValues(alpha: 0.3),
+                          width: 0.5,
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.location_on,
-                            color: Color(0xFFFFC107),
-                            size: 14,
+                            color: AppColors.gold,
+                            size: 12,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             '${tour.points.length} ${strings.stops}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                            style: TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
@@ -221,24 +238,25 @@ class _TourCard extends StatelessWidget {
               ),
               // Text content
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       tour.title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.2,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 3),
                     Text(
                       tour.subtitle,
-                      style: const TextStyle(
-                        color: Color(0xFFFFC107),
-                        fontSize: 13,
+                      style: TextStyle(
+                        color: AppColors.gold,
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -247,8 +265,8 @@ class _TourCard extends StatelessWidget {
                       tour.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.white60,
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
                         fontSize: 13,
                         height: 1.4,
                       ),
@@ -281,13 +299,16 @@ class _StartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.icon(
       onPressed: onTap,
-      icon: const Icon(Icons.play_arrow, size: 18),
+      icon: const Icon(Icons.play_arrow, size: 16),
       label: Text(strings.startTour),
       style: FilledButton.styleFrom(
-        backgroundColor: const Color(0xFFFFC107),
-        foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: AppColors.gold,
+        foregroundColor: AppColors.background,
+        disabledBackgroundColor: AppColors.goldDark.withValues(alpha: 0.3),
+        disabledForegroundColor: AppColors.textDisabled,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
       ),
     );
   }

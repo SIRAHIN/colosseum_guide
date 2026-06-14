@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LanguageListTile extends StatelessWidget {
@@ -20,33 +21,34 @@ class LanguageListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveColor = selectedColor ?? const Color(0xFFFFC107);
+    final accent = selectedColor ?? AppColors.gold;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       child: Material(
         color: isSelected
-            ? effectiveColor.withValues(alpha: 0.15)
-            : Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
+            ? accent.withValues(alpha: 0.08)
+            : AppColors.surface,
+        borderRadius: BorderRadius.circular(10),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10),
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
               border: isSelected
-                  ? Border.all(color: effectiveColor, width: 1.5)
-                  : null,
+                  ? Border.all(color: accent.withValues(alpha: 0.5), width: 1)
+                  : Border.all(color: AppColors.border, width: 0.5),
             ),
             child: Row(
               children: [
                 Icon(
                   icon,
-                  color: isSelected ? effectiveColor : Colors.white54,
+                  color: isSelected ? accent : AppColors.textDisabled,
+                  size: 22,
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,19 +56,18 @@ class LanguageListTile extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
-                          color: isSelected ? effectiveColor : Colors.white70,
-                          fontSize: 16,
-                          fontWeight:
-                              isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+                          fontSize: 15,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                         ),
                       ),
                       if (subtitle != null) ...[
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 1),
                         Text(
                           subtitle!,
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.4),
-                            fontSize: 13,
+                            color: AppColors.textDisabled,
+                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -74,7 +75,7 @@ class LanguageListTile extends StatelessWidget {
                   ),
                 ),
                 if (isSelected)
-                  Icon(Icons.check_circle, color: effectiveColor, size: 24),
+                  Icon(Icons.check_circle, color: accent, size: 20),
               ],
             ),
           ),

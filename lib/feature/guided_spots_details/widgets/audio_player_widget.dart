@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -39,12 +40,15 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     if (!widget.loaded) {
-      return const Padding(
-        padding: EdgeInsets.all(16),
+      return Padding(
+        padding: const EdgeInsets.all(12),
         child: Text(
           'No audio loaded',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white38, fontSize: 14),
+          style: TextStyle(
+            color: AppColors.textDisabled,
+            fontSize: 13,
+          ),
         ),
       );
     }
@@ -60,7 +64,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           children: [
             Text(
               _formatDuration(position),
-              style: const TextStyle(color: Colors.white54, fontSize: 12),
+              style: TextStyle(
+                color: AppColors.textDisabled,
+                fontSize: 11,
+              ),
             ),
             Expanded(
               child: Slider(
@@ -72,21 +79,24 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                     milliseconds: (value * duration.inMilliseconds).round(),
                   ));
                 },
-                activeColor: const Color(0xFFFFC107),
-                inactiveColor: Colors.white24,
+                activeColor: AppColors.gold,
+                inactiveColor: AppColors.border,
               ),
             ),
             Text(
               _formatDuration(duration),
-              style: const TextStyle(color: Colors.white54, fontSize: 12),
+              style: TextStyle(
+                color: AppColors.textDisabled,
+                fontSize: 11,
+              ),
             ),
           ],
         ),
         IconButton(
           icon: Icon(
             isPlaying ? Icons.pause_circle : Icons.play_circle,
-            size: 48,
-            color: const Color(0xFFFFC107),
+            size: 44,
+            color: AppColors.gold,
           ),
           onPressed: () {
             if (isPlaying) {
