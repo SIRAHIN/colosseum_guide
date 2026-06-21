@@ -18,11 +18,7 @@ class LanguageSelectView extends ConsumerStatefulWidget {
 
 class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
   void _onNext() {
-    context.goNamed(widget.reRouteName ?? guidedLandingViewName);
-  }
-
-  void _onSkip() {
-    context.goNamed(widget.reRouteName ?? guidedLandingViewName);
+     widget.reRouteName == settingsViewName ? context.pop() : context.goNamed(widget.reRouteName ?? guidedLandingViewName);
   }
 
   @override
@@ -33,34 +29,17 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: AppColors.background,
       body: SafeArea(
+        
         child: Column(
           children: [
             // Custom header
               Padding(
-              padding: const EdgeInsets.fromLTRB(28, 20, 28, 0),
+              padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
               child: Column(
                 children: [
-                  // Skip button row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: _onSkip,
-                        child: Text(
-                          strings.skip,
-                          style: TextStyle(
-                            color: AppColors.textDisabled,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
                   // Emblem
                   Container(
                     padding: const EdgeInsets.all(18),

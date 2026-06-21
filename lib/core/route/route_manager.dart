@@ -3,6 +3,7 @@ import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots/view/guided_spots_view.dart';
 import 'package:colosseum_guide/feature/guided_spots_details/view/guided_spots_details_view.dart';
 import 'package:colosseum_guide/feature/language_select/view/language_select_view.dart';
+import 'package:colosseum_guide/feature/settings/presentation/settings_view.dart';
 import 'package:colosseum_guide/feature/splash/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -49,6 +50,13 @@ class RouteManager {
           ),
         ],
       ),
+
+      // Settings Route
+      GoRoute(
+        name: settingsViewName,
+        path: settingsViewPath,
+        builder: (context, state) => const SettingsView(),
+      ),
     ],
   );
 }
@@ -59,9 +67,11 @@ const String guidedLandingViewPath = '/guided-landing';
 const String guidedSpotsViewPath = '/guided-spots';
 const String guidedSpotsDetailsPath = 'guided-spots-details';
 const String languageSelectViewPath = '/language-select';
+const String settingsViewPath = '/settings';
 // Routes Names
 const String splashViewName = 'splashView';
 const String guidedLandingViewName = 'guidedLandingView';
 const String guidedSpotsViewName = 'guidedSpotsView';
 const String guidedSpotsDetailsName = 'guidedSpotsDetailsView';
 const String languageSelectViewName = 'languageSelectView';
+const String settingsViewName = 'settingsView';

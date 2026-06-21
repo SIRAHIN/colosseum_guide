@@ -40,10 +40,7 @@ class GuidedSpotsView extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  context.pushNamed(
-                    languageSelectViewName,
-                    extra: guidedSpotsViewName,
-                  );
+                  context.pushNamed(settingsViewName);
                 },
                 icon: Container(
                   padding: const EdgeInsets.all(8),
@@ -56,7 +53,7 @@ class GuidedSpotsView extends ConsumerWidget {
                     ),
                   ),
                   child: Icon(
-                    Icons.language,
+                    Icons.settings,
                     size: 18,
                     color: AppColors.gold,
                   ),
