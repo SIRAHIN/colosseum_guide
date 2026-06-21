@@ -41,13 +41,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   Widget build(BuildContext context) {
     if (!widget.loaded) {
       return Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Text(
-          'No audio loaded',
+          'No audio available',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColors.textDisabled,
-            fontSize: 13,
+            fontSize: 12,
           ),
         ),
       );
@@ -62,49 +62,87 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       children: [
         Row(
           children: [
-            Text(
-              _formatDuration(position),
-              style: TextStyle(
-                color: AppColors.textDisabled,
-                fontSize: 11,
+            // Play/pause button — pill style
+            GestureDetector(
+              onTap: () {
+                if (isPlaying) {
+                  widget.player.pause();
+                } else {
+                  widget.player.play();
+                }
+              },
+              child: Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  gradient: AppColors.goldGradient,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                  color: AppColors.background,
+                  size: 24,
+                ),
               ),
             ),
+            const SizedBox(width: 12),
+            // Progress bar + timestamps
             Expanded(
-              child: Slider(
-                value: duration.inMilliseconds > 0
-                    ? position.inMilliseconds / duration.inMilliseconds
-                    : 0,
-                onChanged: (value) {
-                  widget.player.seek(Duration(
-                    milliseconds: (value * duration.inMilliseconds).round(),
-                  ));
-                },
-                activeColor: AppColors.gold,
-                inactiveColor: AppColors.border,
-              ),
-            ),
-            Text(
-              _formatDuration(duration),
-              style: TextStyle(
-                color: AppColors.textDisabled,
-                fontSize: 11,
+              child: Column(
+                children: [
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      trackHeight: 3,
+                      thumbShape: const RoundSliderThumbShape(
+                        enabledThumbRadius: 5,
+                      ),
+                      overlayShape: const RoundSliderOverlayShape(
+                        overlayRadius: 12,
+                      ),
+                    ),
+                    child: Slider(
+                      value: duration.inMilliseconds > 0
+                          ? position.inMilliseconds / duration.inMilliseconds
+                          : 0,
+                      onChanged: (value) {
+                        widget.player.seek(Duration(
+                          milliseconds:
+                              (value * duration.inMilliseconds).round(),
+                        ));
+                      },
+                      activeColor: AppColors.gold,
+                      inactiveColor: AppColors.border,
+                      thumbColor: AppColors.goldLight,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _formatDuration(position),
+                          style: TextStyle(
+                            color: AppColors.textDisabled,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          _formatDuration(duration),
+                          style: TextStyle(
+                            color: AppColors.textDisabled,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
-        ),
-        IconButton(
-          icon: Icon(
-            isPlaying ? Icons.pause_circle : Icons.play_circle,
-            size: 44,
-            color: AppColors.gold,
-          ),
-          onPressed: () {
-            if (isPlaying) {
-              widget.player.pause();
-            } else {
-              widget.player.play();
-            }
-          },
         ),
       ],
     );

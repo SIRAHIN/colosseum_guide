@@ -18,16 +18,16 @@ class AppTheme {
         onSurface: AppColors.textPrimary,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Colors.transparent,
         foregroundColor: AppColors.gold,
         elevation: 0,
         centerTitle: false,
-        scrolledUnderElevation: 2,
+        scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
           color: AppColors.textPrimary,
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
           letterSpacing: 0.5,
         ),
       ),
@@ -38,16 +38,16 @@ class AppTheme {
           disabledBackgroundColor: AppColors.goldDark.withValues(alpha: 0.3),
           disabledForegroundColor: AppColors.textDisabled,
           textStyle: const TextStyle(
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
+            letterSpacing: 1,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
-          elevation: 2,
-          shadowColor: AppColors.gold.withValues(alpha: 0.3),
+          elevation: 0,
+          shadowColor: Colors.transparent,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
@@ -59,11 +59,11 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            letterSpacing: 0.3,
+            letterSpacing: 0.5,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
@@ -71,13 +71,13 @@ class AppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.textSecondary,
           disabledForegroundColor: AppColors.textDisabled,
-          side: const BorderSide(color: AppColors.border),
+          side: const BorderSide(color: AppColors.border, width: 0.5),
           textStyle: const TextStyle(
             fontWeight: FontWeight.w500,
             letterSpacing: 0.3,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
@@ -89,10 +89,10 @@ class AppTheme {
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: AppColors.border, width: 0.5),
         ),
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: EdgeInsets.zero,
       ),
       sliderTheme: SliderThemeData(
         activeTrackColor: AppColors.gold,
@@ -104,21 +104,21 @@ class AppTheme {
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
           color: AppColors.textPrimary,
-          fontSize: 28,
+          fontSize: 32,
           fontWeight: FontWeight.w700,
           letterSpacing: 1,
           height: 1.2,
         ),
         headlineMedium: TextStyle(
           color: AppColors.textPrimary,
-          fontSize: 22,
+          fontSize: 24,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.5,
           height: 1.3,
         ),
         headlineSmall: TextStyle(
           color: AppColors.textPrimary,
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.3,
         ),
@@ -135,13 +135,13 @@ class AppTheme {
         ),
         bodyLarge: TextStyle(
           color: AppColors.textPrimary,
-          fontSize: 16,
-          height: 1.5,
+          fontSize: 15,
+          height: 1.6,
         ),
         bodyMedium: TextStyle(
           color: AppColors.textSecondary,
           fontSize: 14,
-          height: 1.5,
+          height: 1.6,
         ),
         bodySmall: TextStyle(
           color: AppColors.textDisabled,
@@ -149,9 +149,9 @@ class AppTheme {
         ),
         labelLarge: TextStyle(
           color: AppColors.gold,
-          fontSize: 14,
+          fontSize: 13,
           fontWeight: FontWeight.w600,
-          letterSpacing: 0.8,
+          letterSpacing: 1,
         ),
       ),
       dividerTheme: const DividerThemeData(

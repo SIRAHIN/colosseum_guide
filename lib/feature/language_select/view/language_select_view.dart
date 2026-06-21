@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-
 class LanguageSelectView extends ConsumerStatefulWidget {
   final String? reRouteName;
   const LanguageSelectView({super.key, this.reRouteName});
@@ -18,7 +17,6 @@ class LanguageSelectView extends ConsumerStatefulWidget {
 }
 
 class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
-
   void _onNext() {
     context.goNamed(widget.reRouteName ?? guidedLandingViewName);
   }
@@ -35,86 +33,97 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.surface,
-        surfaceTintColor: Colors.transparent,
-      ),
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
-            // Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(28, 24, 28, 8),
+            // Custom header
+              Padding(
+              padding: const EdgeInsets.fromLTRB(28, 20, 28, 0),
               child: Column(
                 children: [
+                  // Skip button row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: _onSkip,
+                        child: Text(
+                          strings.skip,
+                          style: TextStyle(
+                            color: AppColors.textDisabled,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  // Emblem
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(18),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [AppColors.surfaceHigh, AppColors.surface],
                       ),
                       border: Border.all(
-                        color: AppColors.gold.withValues(alpha: 0.15),
+                        color: AppColors.gold.withValues(alpha: 0.2),
                         width: 1,
                       ),
                     ),
                     child: ShaderMask(
-                      shaderCallback: (bounds) => LinearGradient(
-                        colors: [AppColors.goldLight, AppColors.gold],
-                      ).createShader(bounds),
+                      shaderCallback: (bounds) =>
+                          AppColors.goldGradient.createShader(bounds),
                       child: const Icon(
                         Icons.translate,
-                        size: 32,
+                        size: 28,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 18),
                   Text(
                     strings.selectLanguage,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: AppColors.gold,
                       letterSpacing: 1,
+                      fontSize: 22,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     strings.chooseLanguage,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      fontSize: 13,
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  // Divider
+                  Container(
+                    width: 40,
+                    height: 1,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          AppColors.gold.withValues(alpha: 0.3),
+                          Colors.transparent,
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
 
-            const SizedBox(height: 12),
-
-            // Skip button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: _onSkip,
-                  child: Text(
-                    strings.skip,
-                    style: TextStyle(
-                      color: AppColors.textDisabled,
-                      fontSize: 13,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
             // Language list
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
                 itemCount: staticlanguagesdata.length,
                 itemBuilder: (context, index) {
                   final lang = staticlanguagesdata[index];
@@ -122,10 +131,15 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
                     title: lang.name,
                     subtitle: lang.nativeName,
                     icon: lang.icon,
-                    isSelected: languageSelectState.selectedIndex == index,
+                    isSelected:
+                        languageSelectState.selectedIndex == index,
                     onTap: () => ref
                         .read(languageSelectViewModelProvider.notifier)
-                        .selectLanguage(index: index, language: lang.name, isLanguageSelected: true),
+                        .selectLanguage(
+                          index: index,
+                          language: lang.name,
+                          isLanguageSelected: true,
+                        ),
                   );
                 },
               ),
@@ -133,15 +147,27 @@ class _LanguageSelectViewState extends ConsumerState<LanguageSelectView> {
 
             // Next button
             Padding(
-              padding: const EdgeInsets.fromLTRB(28, 12, 28, 24),
+              padding: const EdgeInsets.fromLTRB(28, 8, 28, 28),
               child: SizedBox(
                 width: double.infinity,
-                height: 52,
+                height: 56,
                 child: ElevatedButton(
                   onPressed: _onNext,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.gold,
+                    foregroundColor: AppColors.background,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
                   child: Text(
                     strings.next,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1,
+                    ),
                   ),
                 ),
               ),
