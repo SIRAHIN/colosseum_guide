@@ -52,7 +52,7 @@ class _GuidedLandingViewState extends ConsumerState<GuidedLandingView>
         children: [
           // Full-bleed hero image
           Image.asset(
-            'assets/panoramas/title_image.jpg',
+            'assets/images/background.jpg',
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) => Container(
               decoration: BoxDecoration(

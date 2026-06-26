@@ -209,7 +209,7 @@ const guideData = {
       "subtitle": "The Hidden Underground",
       "description":
           "Descend into the recently restored underground levels of the Colosseum. Explore the hypogeum, animal pens, and mechanical systems that made the spectacles possible.",
-      "coverImage": "assets/ui/tour_cover_underground.jpg",
+      "coverImage": "assets/images/explore_02.jpg",
       "durationMinutes": 30,
       "points": [],
     },
@@ -219,7 +219,7 @@ const guideData = {
       "subtitle": "The Colosseum by Night",
       "description":
           "Experience the Colosseum under moonlight as the ancient Romans did during special nocturnal games. Torches, shadows, and stone create an unforgettable atmosphere.",
-      "coverImage": "assets/ui/tour_cover_night.jpg",
+      "coverImage": "assets/images/explore03.jpg",
       "durationMinutes": 25,
       "points": [],
     },

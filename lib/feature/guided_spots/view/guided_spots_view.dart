@@ -30,7 +30,7 @@ class GuidedSpotsView extends ConsumerWidget {
               title: Text(
                 strings.explore,
                 style: TextStyle(
-                  color: AppColors.textPrimary,
+                  color: AppColors.gold,
                   fontWeight: FontWeight.w700,
                   fontSize: 24,
                   letterSpacing: 0.5,
