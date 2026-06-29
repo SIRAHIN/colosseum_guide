@@ -1,21 +1,28 @@
+import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
 import 'package:colosseum_guide/core/theme/app_colors.dart';
+import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:colosseum_guide/feature/settings/widgets/settings_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
 
   static const String _appVersion = '1.0.0';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final strings = ref.watch(appStringsProvider);
+    final language = ref.watch(localLanguageDataProvider).getLanguage();
+    
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(
-          'Settings',
+          strings.settings,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
@@ -28,11 +35,11 @@ class SettingsView extends StatelessWidget {
             const SizedBox(height: 24),
 
             // ── Preferences ──
-            const _SectionLabel(title: 'Preferences'),
+            _SectionLabel(title: strings.preferences),
             SettingsListTile(
               icon: Icons.translate,
-              title: 'Language',
-              subtitle: 'English',
+              title: strings.language,
+              subtitle: language.selectedLanguage,
               onTap: () => context.pushNamed(
                 languageSelectViewName,
                 extra: settingsViewName,
@@ -41,31 +48,31 @@ class SettingsView extends StatelessWidget {
             const SizedBox(height: 24),
 
             // ── Support ──
-            const _SectionLabel(title: 'Support'),
+            _SectionLabel(title: strings.support),
             SettingsListTile(
               icon: Icons.support_agent,
-              title: 'Contact Support',
-              subtitle: 'Get help from our team',
+              title: strings.contactSupport,
+              subtitle: strings.getHelpFromOurTeam,
               onTap: () {},
             ),
             SettingsListTile(
               icon: Icons.help_outline,
-              title: 'FAQs',
-              subtitle: 'Frequently asked questions',
+              title: strings.faqs,
+              subtitle: strings.frequentlyAskedQuestions,
               onTap: () {},
             ),
             const SizedBox(height: 24),
 
             // ── About ──
-            const _SectionLabel(title: 'About'),
+            _SectionLabel(title: strings.about),
             SettingsListTile(
               icon: Icons.privacy_tip_outlined,
-              title: 'Privacy Policy',
+              title: strings.privacyPolicy,
               onTap: () {},
             ),
             SettingsListTile(
               icon: Icons.info_outline,
-              title: 'App Version',
+              title: strings.appVersion,
               trailing: Text(
                 _appVersion,
                 style: const TextStyle(

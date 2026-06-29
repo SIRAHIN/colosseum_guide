@@ -17,6 +17,18 @@ class AppStrings {
   final String tourUnavailable;
   final String letsGetStarted;
   final String yourJourneyThroughHistory;
+  final String settings;
+  final String viewAndEditYourProfile;
+  final String preferences;
+  final String language;
+  final String support;
+  final String contactSupport;
+  final String getHelpFromOurTeam;
+  final String faqs;
+  final String frequentlyAskedQuestions;
+  final String about;
+  final String privacyPolicy;
+  final String appVersion;
 
   const AppStrings({
     required this.next,
@@ -34,6 +46,18 @@ class AppStrings {
     required this.tourUnavailable,
     required this.letsGetStarted,
     required this.yourJourneyThroughHistory,
+    required this.settings,
+    required this.viewAndEditYourProfile,
+    required this.preferences,
+    required this.language,
+    required this.support,
+    required this.contactSupport,
+    required this.getHelpFromOurTeam,
+    required this.faqs,
+    required this.about,
+    required this.frequentlyAskedQuestions,
+    required this.privacyPolicy,
+    required this.appVersion, 
   });
 }
 
@@ -54,6 +78,18 @@ const _english = AppStrings(
   tourUnavailable: 'Oops! This tour is currently unavailable.',
   letsGetStarted: "Let's Get Started",
   yourJourneyThroughHistory: 'Your journey through history',
+  settings: 'Settings',
+  viewAndEditYourProfile: 'View and edit your profile',
+  preferences: 'Preferences',
+  language: 'Language',
+  support: 'Support',
+  contactSupport: 'Contact Support',
+  getHelpFromOurTeam: 'Get help from our team',
+  faqs: 'FAQs',
+  about: 'About',
+  frequentlyAskedQuestions: 'Frequently asked questions',
+  privacyPolicy: 'Privacy Policy',
+  appVersion: 'App Version',
 );
 
 const _translations = <String, AppStrings>{
@@ -75,6 +111,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: 'Ops! Questo tour non è attualmente disponibile.',
     letsGetStarted: 'Iniziamo',
     yourJourneyThroughHistory: 'Il tuo viaggio attraverso la storia',
+    settings: 'Impostazioni',
+    viewAndEditYourProfile: 'Visualizza e modifica il tuo profilo',
+    preferences: 'Preferenze',
+    language: 'Lingua',
+    support: 'Supporto',
+    contactSupport: 'Contatta il Supporto',
+    getHelpFromOurTeam: 'Ottieni aiuto dalla nostra squadra',
+    faqs: 'Domande Frequenti',
+    about: 'Informazioni',
+    frequentlyAskedQuestions: 'Domande Frequenti',
+    privacyPolicy: 'Informativa sulla Privacy',
+    appVersion: 'Versione dell\'App',
   ),
   'Spanish': AppStrings(
     next: 'Siguiente',
@@ -93,6 +141,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: '¡Ups! Este tour no está disponible actualmente.',
     letsGetStarted: 'Comencemos',
     yourJourneyThroughHistory: 'Tu viaje a través de la historia',
+    settings: 'Configuración',
+    viewAndEditYourProfile: 'Ver y editar tu perfil',
+    preferences: 'Preferencias',
+    language: 'Idioma',
+    support: 'Soporte',
+    contactSupport: 'Contactar el Soporte',
+    getHelpFromOurTeam: 'Obtener ayuda de nuestro equipo',
+    faqs: 'Preguntas Frecuentes',
+    about: 'Acerca de',
+    frequentlyAskedQuestions: 'Preguntas Frecuentes',
+    privacyPolicy: 'Política de Privacidad',
+    appVersion: 'Versión de la App',
   ),
   'French': AppStrings(
     next: 'Suivant',
@@ -111,6 +171,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: 'Oups ! Ce tour n\'est pas disponible actuellement.',
     letsGetStarted: 'Commençons',
     yourJourneyThroughHistory: 'Votre voyage à travers l\'histoire',
+    settings: 'Paramètres',
+    viewAndEditYourProfile: 'Voir et modifier votre profil',
+    preferences: 'Préférences',
+    language: 'Langue',
+    support: 'Support',
+    contactSupport: 'Contacter le Support',
+    getHelpFromOurTeam: 'Obtenir de l\'aide de notre équipe',
+    faqs: 'FAQs',
+    about: 'À propos',
+    frequentlyAskedQuestions: 'Questions Fréquentes',
+    privacyPolicy: 'Politique de Confidentialité',
+    appVersion: 'Version de l\'App',
   ),
   'German': AppStrings(
     next: 'Weiter',
@@ -129,6 +201,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: 'Hoppla! Diese Tour ist derzeit nicht verfügbar.',
     letsGetStarted: 'Los geht\'s',
     yourJourneyThroughHistory: 'Ihr Reise durch die Geschichte',
+    settings: 'Einstellungen',
+    viewAndEditYourProfile: 'Ihr Profil ansehen und bearbeiten',
+    preferences: 'Einstellungen',
+    language: 'Sprache',
+    support: 'Support',
+    contactSupport: 'Kontaktiere den Support',
+    getHelpFromOurTeam: 'Holen Sie sich Hilfe von unserem Team',
+    faqs: 'FAQs',
+    about: 'Über',
+    frequentlyAskedQuestions: 'Häufig gestellte Fragen',
+    privacyPolicy: 'Datenschutzrichtlinie',
+    appVersion: 'App-Version',
   ),
   'Japanese': AppStrings(
     next: '次へ',
@@ -147,6 +231,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: 'このツアーは現在ご利用いただけません。',
     letsGetStarted: '始めましょう',
     yourJourneyThroughHistory: 'あなたの歴史の旅',
+    settings: '設定',
+    viewAndEditYourProfile: 'プロフィールを表示して編集',
+    preferences: '設定',
+    language: '言語',
+    support: 'サポート',
+    contactSupport: 'サポートに連絡する',
+    getHelpFromOurTeam: 'チームからの支援を受ける',
+    faqs: 'よくある質問',
+    about: '紹介',
+    frequentlyAskedQuestions: 'よくある質問',
+    privacyPolicy: 'プライバシーポリシー',
+    appVersion: 'アプリバージョン',
   ),
   'Chinese': AppStrings(
     next: '下一步',
@@ -156,7 +252,7 @@ const _translations = <String, AppStrings>{
     explore: '探索',
     stop: '站点',
     selectLanguage: '选择语言',
-    chooseLanguage: '选择您偏好的语言',
+    chooseLanguage: '选择您偏好的语言', 
     colosseumGuide: '斗兽场指南',
     landingDescription: '通过全景视图和沉浸式音频讲解探索斗兽场。游览5个标志性景点。',
     min: '分钟',
@@ -164,6 +260,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: '抱歉！该游览目前不可用。',
     letsGetStarted: '开始吧',
     yourJourneyThroughHistory: '你的历史之旅',
+    settings: '设置',
+    viewAndEditYourProfile: '查看和编辑您的个人资料',
+    preferences: '偏好设置',
+    language: '语言',
+    support: '支持',
+    contactSupport: '联系支持',
+    getHelpFromOurTeam: '从我们的团队获得帮助',
+    faqs: '常见问题',
+    about: '关于',
+    frequentlyAskedQuestions: '常见问题',
+    privacyPolicy: '隐私政策',
+    appVersion: '应用版本',
   ),
   'Turkish': AppStrings(
     next: 'İleri',
@@ -182,6 +290,18 @@ const _translations = <String, AppStrings>{
     tourUnavailable: 'Hay aksi! Bu tur şu anda mevcut değil.',
     letsGetStarted: 'Başlayalım',
     yourJourneyThroughHistory: 'Türkçe tarihi yolculuğu',
+    settings: 'Ayarlar',
+    viewAndEditYourProfile: 'Profilinizi görüntüleyin ve düzenleyin',
+    preferences: 'Tercihler',
+    language: 'Dil',
+    support: 'Destek',
+    contactSupport: 'Destek Al',
+    getHelpFromOurTeam: 'Ekipimize yardım alın',
+    faqs: 'SSS',
+    about: 'Hakkında',
+    frequentlyAskedQuestions: 'Sıkça Sorulan Sorular',
+    privacyPolicy: 'Gizlilik Politikası',
+    appVersion: 'Uygulama Sürümü',
   ),
 };
 

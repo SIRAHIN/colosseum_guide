@@ -1,3 +1,4 @@
+import 'package:colosseum_guide/feature/download_audio/presentation/download_audio_screen.dart';
 import 'package:colosseum_guide/feature/guided_landing/view/guided_landing_view.dart';
 import 'package:colosseum_guide/feature/guided_spots/model/guide_model.dart';
 import 'package:colosseum_guide/feature/guided_spots/view/guided_spots_view.dart';
@@ -31,6 +32,13 @@ class RouteManager {
         name: guidedLandingViewName,
         path: guidedLandingViewPath,
         builder: (context, state) => const GuidedLandingView(),
+      ),
+
+      // Download Audio Route
+      GoRoute(
+        name: downloadAudioViewName,
+        path: downloadAudioViewPath,
+        builder: (context, state) => const DownloadAudioScreen(),
       ),
 
       // Guided Spots Routes
@@ -68,6 +76,7 @@ const String guidedSpotsViewPath = '/guided-spots';
 const String guidedSpotsDetailsPath = 'guided-spots-details';
 const String languageSelectViewPath = '/language-select';
 const String settingsViewPath = '/settings';
+const String downloadAudioViewPath = '/download-audio';
 // Routes Names
 const String splashViewName = 'splashView';
 const String guidedLandingViewName = 'guidedLandingView';
@@ -75,3 +84,4 @@ const String guidedSpotsViewName = 'guidedSpotsView';
 const String guidedSpotsDetailsName = 'guidedSpotsDetailsView';
 const String languageSelectViewName = 'languageSelectView';
 const String settingsViewName = 'settingsView';
+const String downloadAudioViewName = 'downloadAudioView';

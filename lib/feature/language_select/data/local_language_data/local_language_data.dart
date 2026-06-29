@@ -4,12 +4,12 @@ import 'package:hive/hive.dart';
 
 abstract class LocalLanguageData {
   Box<LanguageModel> get languageBox;
-  Future<LanguageModel> saveLanguage({
+  LanguageModel saveLanguage({
     required String language,
     required int index,
     required bool isLanguageSelected,
   });
-  Future<LanguageModel> getLanguage();
+  LanguageModel getLanguage();
 }
 
 class LocalLanguageDataImpl implements LocalLanguageData {
@@ -20,22 +20,22 @@ class LocalLanguageDataImpl implements LocalLanguageData {
   Box<LanguageModel> get languageBox => Hive.box<LanguageModel>(_boxName);
 
   @override
-  Future<LanguageModel> saveLanguage({
+  LanguageModel saveLanguage({
     required String language,
     required int index,
     required bool isLanguageSelected,
-  }) async {
+  }) {
     final languageModel = LanguageModel(
       selectedLanguage: language,
       selectedIndex: index,
       isLanguageSelected: isLanguageSelected,
     );
-    await languageBox.put(_languageKey, languageModel);
+    languageBox.put(_languageKey, languageModel);
     return languageModel;
   }
 
   @override
-  Future<LanguageModel> getLanguage() async {
+  LanguageModel getLanguage() {
     return languageBox.get(_languageKey) ??
         LanguageModel(
           selectedLanguage: '',

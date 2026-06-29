@@ -18,6 +18,22 @@ class GuidedSpotsView extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        backgroundColor: AppColors.gold,
+        foregroundColor: AppColors.background,
+        shape: const StadiumBorder(),
+        label: const Text(
+          'Ask Aurelia',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 15,
+            letterSpacing: 0.5,
+          ),
+        ),
+        icon: const Icon(Icons.auto_awesome, size: 18),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -47,23 +63,16 @@ class GuidedSpotsView extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: AppColors.surface.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: AppColors.border,
-                      width: 0.5,
-                    ),
+                    border: Border.all(color: AppColors.border, width: 0.5),
                   ),
-                  child: Icon(
-                    Icons.settings,
-                    size: 18,
-                    color: AppColors.gold,
-                  ),
+                  child: Icon(Icons.settings, size: 18, color: AppColors.gold),
                 ),
               ),
               const SizedBox(width: 16),
             ],
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 90),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return guidedSpotsState.tours.isEmpty
@@ -81,16 +90,16 @@ class GuidedSpotsView extends ConsumerWidget {
                         strings: strings,
                         onTap: () =>
                             guidedSpotsState.tours[index].points.isEmpty
-                                ? toastification.show(
-                                    title: Text(strings.tourUnavailable),
-                                    type: ToastificationType.warning,
-                                    style: ToastificationStyle.flat,
-                                    autoCloseDuration: const Duration(seconds: 3),
-                                  )
-                                : _navigateToGuide(
-                                    context,
-                                    guidedSpotsState.tours[index],
-                                  ),
+                            ? toastification.show(
+                                title: Text(strings.tourUnavailable),
+                                type: ToastificationType.warning,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: const Duration(seconds: 3),
+                              )
+                            : _navigateToGuide(
+                                context,
+                                guidedSpotsState.tours[index],
+                              ),
                       );
               }, childCount: guidedSpotsState.tours.length),
             ),
@@ -271,7 +280,11 @@ class _ImmersiveTourCard extends StatelessWidget {
                             color: AppColors.textDisabled,
                           ),
                         const Spacer(),
-                        _StartButton(strings: strings, onTap: onTap, enabled: hasPoints),
+                        _StartButton(
+                          strings: strings,
+                          onTap: onTap,
+                          enabled: hasPoints,
+                        ),
                       ],
                     ),
                   ],
@@ -290,11 +303,7 @@ class _Badge extends StatelessWidget {
   final String text;
   final Color color;
 
-  const _Badge({
-    required this.icon,
-    required this.text,
-    required this.color,
-  });
+  const _Badge({required this.icon, required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -351,7 +360,11 @@ class _StartButton extends StatelessWidget {
         disabledForegroundColor: AppColors.textDisabled,
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.5),
+        textStyle: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.5,
+        ),
       ),
     );
   }

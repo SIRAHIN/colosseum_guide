@@ -117,12 +117,12 @@ class _GuidedLandingViewState extends ConsumerState<GuidedLandingView>
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            strings.colosseumGuide,
+                            'Aurelia',
                             textAlign: TextAlign.center,
                             style: theme.textTheme.headlineLarge?.copyWith(
                               color: AppColors.gold,
-                              letterSpacing: 2,
-                              fontSize: 34,
+                              letterSpacing: 4,
+                              fontSize: 44,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -163,7 +163,7 @@ class _GuidedLandingViewState extends ConsumerState<GuidedLandingView>
                       height: 56,
                       child: ElevatedButton(
                         onPressed: () {
-                          context.goNamed(guidedSpotsViewName);
+                          context.goNamed(downloadAudioViewName);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.gold,
