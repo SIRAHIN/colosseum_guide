@@ -192,13 +192,13 @@ class _GuidedLandingViewState extends ConsumerState<GuidedLandingView>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.panorama,
+                          Icons.headphones_rounded,
                           size: 14,
                           color: AppColors.textDisabled,
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          '360° Panoramic Experience',
+                          'Immersive Audio Experience',
                           style: TextStyle(
                             color: AppColors.textDisabled,
                             fontSize: 11,

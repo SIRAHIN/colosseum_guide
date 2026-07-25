@@ -83,127 +83,193 @@ class _SplashViewState extends ConsumerState<SplashView>
     final strings = ref.watch(appStringsProvider);
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return Opacity(
-              opacity: _fadeAnimation.value,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Emblem with pulsing glow
-                  SizedBox(
-                    width: 140,
-                    height: 140,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Outer glow rings
-                        ...List.generate(3, (i) {
-                          final ringGlow = (_glowAnimation.value - i * 0.2).clamp(0.0, 1.0);
-                          return Container(
-                            width: 100 + i * 20,
-                            height: 100 + i * 20,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColors.gold.withValues(alpha: 0.08 * ringGlow),
-                                width: 0.5,
-                              ),
-                            ),
-                          );
-                        }),
-                        // Main emblem
-                        Transform.scale(
-                          scale: _scaleAnimation.value,
-                          child: Container(
-                            padding: const EdgeInsets.all(26),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: RadialGradient(
-                                colors: [
-                                  AppColors.surfaceHigh,
-                                  AppColors.surface,
-                                ],
-                              ),
-                              border: Border.all(
-                                color: AppColors.gold.withValues(alpha: 0.3),
-                                width: 1.5,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.gold.withValues(alpha: 0.12 * _glowAnimation.value),
-                                  blurRadius: 60,
-                                  spreadRadius: 16,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background artwork with dark vignette overlay
+          Image.asset(
+            'assets/images/background.jpg',
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Container(
+              color: AppColors.background,
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.0, 0.3, 0.7, 1.0],
+                colors: [
+                  AppColors.background.withValues(alpha: 0.8),
+                  AppColors.background.withValues(alpha: 0.92),
+                  AppColors.background,
+                  AppColors.background,
+                ],
+              ),
+            ),
+          ),
+          // Center Emblem & Content
+          Center(
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: _fadeAnimation.value,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Emblem with pulsing glow
+                      SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // Outer glow rings
+                            ...List.generate(3, (i) {
+                              final ringGlow =
+                                  (_glowAnimation.value - i * 0.2)
+                                      .clamp(0.0, 1.0);
+                              return Container(
+                                width: 105 + i * 22,
+                                height: 105 + i * 22,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: AppColors.gold
+                                        .withValues(alpha: 0.12 * ringGlow),
+                                    width: 0.8,
+                                  ),
                                 ),
-                              ],
+                              );
+                            }),
+                            // Main emblem
+                            Transform.scale(
+                              scale: _scaleAnimation.value,
+                              child: Container(
+                                padding: const EdgeInsets.all(28),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: RadialGradient(
+                                    colors: [
+                                      AppColors.surfaceHigh,
+                                      AppColors.surface,
+                                    ],
+                                  ),
+                                  border: Border.all(
+                                    color:
+                                        AppColors.gold.withValues(alpha: 0.4),
+                                    width: 1.5,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.gold.withValues(
+                                          alpha:
+                                              0.2 * _glowAnimation.value),
+                                      blurRadius: 60,
+                                      spreadRadius: 16,
+                                    ),
+                                  ],
+                                ),
+                                child: ShaderMask(
+                                  shaderCallback: (bounds) => AppColors
+                                      .goldGradient
+                                      .createShader(bounds),
+                                  child: const Icon(
+                                    Icons.stadium_rounded,
+                                    size: 64,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
-                            child: ShaderMask(
-                              shaderCallback: (bounds) => AppColors.goldGradient.createShader(bounds),
-                              child: const Icon(
-                                Icons.stadium,
-                                size: 64,
-                                color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 44),
+                      // Title
+                      ShaderMask(
+                        shaderCallback: (bounds) =>
+                            AppColors.goldGradient.createShader(bounds),
+                        child: Text(
+                          strings.colosseumGuide.toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 4,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      // Gold Divider with Diamond
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 1,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  AppColors.gold.withValues(alpha: 0.5),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  // Title
-                  ShaderMask(
-                    shaderCallback: (bounds) => AppColors.goldGradient.createShader(bounds),
-                    child: Text(
-                      strings.colosseumGuide,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 4,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: 50,
-                    height: 1,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.transparent,
-                          AppColors.gold.withValues(alpha: 0.5),
-                          Colors.transparent,
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 6),
+                            width: 5,
+                            height: 5,
+                            decoration: BoxDecoration(
+                              color: AppColors.gold,
+                              borderRadius: BorderRadius.circular(1),
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                            height: 1,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppColors.gold.withValues(alpha: 0.5),
+                                  Colors.transparent,
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                    ),
+                      const SizedBox(height: 14),
+                      Text(
+                        strings.yourJourneyThroughHistory.toUpperCase(),
+                        style: TextStyle(
+                          color: AppColors.textSecondary.withValues(alpha: 0.8),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 3,
+                        ),
+                      ),
+                      const SizedBox(height: 64),
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.gold.withValues(alpha: 0.7),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 14),
-                  Text(
-                    strings.yourJourneyThroughHistory,
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 12,
-                      letterSpacing: 3,
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 1.5,
-                      color: AppColors.gold.withValues(alpha: 0.5),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+

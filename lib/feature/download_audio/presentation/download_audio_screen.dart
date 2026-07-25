@@ -320,72 +320,68 @@ class _DownloadAudioScreenState extends ConsumerState<DownloadAudioScreen> {
     final bottomPad = MediaQuery.of(context).padding.bottom;
 
     final isCompleted = state.status == DownloadStatus.completed;
-    final isError = state.status == DownloadStatus.error;
-    final isCancelled = state.status == DownloadStatus.cancelled;
-    final showSecondary = isError || isCancelled;
+    final isError = state.status == DownloadStatus.error ||
+        state.status == DownloadStatus.cancelled;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(24, 12, 24, bottomPad + 28),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showSecondary)
+          if (isError)
             Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: GestureDetector(
-                onTap: () => ref
-                    .read(downloadAudioViewModelProvider.notifier)
-                    .startDownload(),
-                child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: AppColors.gold,
-                    borderRadius: BorderRadius.circular(14),
+              padding: const EdgeInsets.only(bottom: 12),
+              child: SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: ElevatedButton(
+                  onPressed: () => ref
+                      .read(downloadAudioViewModelProvider.notifier)
+                      .startDownload(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.gold,
+                    foregroundColor: AppColors.background,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
-                  child: const Center(
-                    child: Text(
-                      'Retry',
-                      style: TextStyle(
-                        color: AppColors.background,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  child: const Text(
+                    'Retry Download',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
             ),
-          GestureDetector(
-            onTap: () {
-              if (state.isDownloading) {
-                ref.read(downloadAudioViewModelProvider.notifier).cancel();
-              }
-              if (isCompleted) {
-                context.goNamed(guidedSpotsViewName);
-              } else {
-                context.goNamed(guidedSpotsViewName);
-              }
-            },
-            child: Container(
-              width: double.infinity,
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColors.border, width: 1.5),
+          SizedBox(
+            width: double.infinity,
+            height: 54,
+            child: ElevatedButton(
+              onPressed: isCompleted
+                  ? () => context.goNamed(guidedSpotsViewName)
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.gold,
+                disabledBackgroundColor: AppColors.gold.withValues(alpha: 0.25),
+                foregroundColor: AppColors.background,
+                disabledForegroundColor: AppColors.textDisabled,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
-              child: Center(
-                child: Text(
-                  isCompleted
-                      ? 'Continue'
-                      : state.isDownloading
-                          ? 'Cancel'
-                          : 'Back',
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+              child: Text(
+                'Continue',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                  color: isCompleted
+                      ? AppColors.background
+                      : AppColors.textDisabled,
                 ),
               ),
             ),
