@@ -23,7 +23,7 @@ class RouteManager {
         name: languageSelectViewName,
         path: languageSelectViewPath,
         builder: (context, state) {
-          final reRouteName = state.extra as String;
+          final reRouteName = state.extra as String?;
           return LanguageSelectView(reRouteName: reRouteName);
         },
       ),

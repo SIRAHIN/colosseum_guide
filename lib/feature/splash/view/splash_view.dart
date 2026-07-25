@@ -57,17 +57,16 @@ class _SplashViewState extends ConsumerState<SplashView>
       final onboarding = ref.read(onboardingCacheProvider);
       final langSelected = await onboarding.isLanguageSelected();
       final audioReady = await onboarding.isAudioDownloaded();
+      if (!mounted) return;
 
       if (!langSelected) {
-        // First launch: auto-select English, skip language screen.
-        await onboarding.setLanguageSelected();
-      }
-
-      if (langSelected && audioReady) {
-        // Returning user — skip onboarding entirely.
+        // First launch: show language select screen
+        context.goNamed(languageSelectViewName, extra: guidedLandingViewName);
+      } else if (audioReady) {
+        // Returning user with audio ready
         context.goNamed(guidedSpotsViewName);
       } else {
-        // Show landing → download flow.
+        // Show landing flow
         context.goNamed(guidedLandingViewName);
       }
     });

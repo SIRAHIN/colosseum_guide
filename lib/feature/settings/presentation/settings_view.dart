@@ -39,7 +39,40 @@ class SettingsView extends ConsumerWidget {
             SettingsListTile(
               icon: Icons.translate,
               title: strings.language,
-              subtitle: language.selectedLanguage,
+              subtitle:
+                  '${language.selectedLanguage.isEmpty ? "English" : language.selectedLanguage} (Active) • More coming soon',
+              trailing: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.gold.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: AppColors.gold.withValues(alpha: 0.3),
+                    width: 0.8,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      language.selectedLanguage.isEmpty
+                          ? 'English'
+                          : language.selectedLanguage,
+                      style: const TextStyle(
+                        color: AppColors.gold,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 11,
+                      color: AppColors.gold,
+                    ),
+                  ],
+                ),
+              ),
               onTap: () => context.pushNamed(
                 languageSelectViewName,
                 extra: settingsViewName,

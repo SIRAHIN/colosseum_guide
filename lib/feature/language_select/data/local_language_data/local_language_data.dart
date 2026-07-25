@@ -36,12 +36,15 @@ class LocalLanguageDataImpl implements LocalLanguageData {
 
   @override
   LanguageModel getLanguage() {
-    return languageBox.get(_languageKey) ??
-        LanguageModel(
-          selectedLanguage: '',
-          selectedIndex: 0,
-          isLanguageSelected: false,
-        );
+    final language = languageBox.get(_languageKey);
+    if (language != null && language.selectedLanguage.isNotEmpty) {
+      return language;
+    }
+    return LanguageModel(
+      selectedLanguage: 'English',
+      selectedIndex: 0,
+      isLanguageSelected: true,
+    );
   }
 }
 

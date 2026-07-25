@@ -1,30 +1,47 @@
 import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:colosseum_guide/feature/language_select/view_model/language_select_state.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LanguageSelectViewModel extends Notifier<LanguageSelectState>{
+class LanguageSelectViewModel extends Notifier<LanguageSelectState> {
   @override
   LanguageSelectState build() {
-    getLanguage();
-    return LanguageSelectState(selectedIndex: 0, selectedLanguage: '');
+    final language = ref.read(localLanguageDataProvider).getLanguage();
+    if (language.isLanguageSelected && language.selectedLanguage.isNotEmpty) {
+      return LanguageSelectState(
+        selectedIndex: language.selectedIndex,
+        selectedLanguage: language.selectedLanguage,
+      );
+    }
+    return LanguageSelectState(selectedIndex: 0, selectedLanguage: 'English');
   }
 
-  Future<void> getLanguage() async {
-    final language = await ref.read(localLanguageDataProvider).getLanguage();
-    if (language.isLanguageSelected) {
-      state = state.copyWith(selectedIndex: language.selectedIndex, selectedLanguage: language.selectedLanguage);
+  void getLanguage() {
+    final language = ref.read(localLanguageDataProvider).getLanguage();
+    if (language.isLanguageSelected && language.selectedLanguage.isNotEmpty) {
+      state = state.copyWith(
+        selectedIndex: language.selectedIndex,
+        selectedLanguage: language.selectedLanguage,
+      );
     } else {
-      state = state.copyWith(selectedIndex: 0, selectedLanguage: '');
+      state = state.copyWith(selectedIndex: 0, selectedLanguage: 'English');
     }
   }
 
-  void selectLanguage({required int index, required String language, required bool isLanguageSelected}) {
+  void selectLanguage({
+    required int index,
+    required String language,
+    required bool isLanguageSelected,
+  }) {
     state = state.copyWith(selectedIndex: index, selectedLanguage: language);
-    ref.read(localLanguageDataProvider).saveLanguage(language: language, index: index, isLanguageSelected: isLanguageSelected)  ;
+    ref.read(localLanguageDataProvider).saveLanguage(
+          language: language,
+          index: index,
+          isLanguageSelected: isLanguageSelected,
+        );
   }
-
 }
 
-final languageSelectViewModelProvider = NotifierProvider<LanguageSelectViewModel, LanguageSelectState>(
+final languageSelectViewModelProvider =
+    NotifierProvider<LanguageSelectViewModel, LanguageSelectState>(
   () => LanguageSelectViewModel(),
 );

@@ -6,10 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class GuidedSpotsViewModel extends Notifier<GuidedSpotsState> {
   @override
   GuidedSpotsState build() {
-    state = GuidedSpotsState(isLoading: true, tours: []);
     List<TourModel> tours = GuideModelData.fromJson(guideData).tours;
-    state = state.copyWith(isLoading: false, tours: tours);
-    return state;
+    return GuidedSpotsState(isLoading: false, tours: tours);
   }
 }
 
