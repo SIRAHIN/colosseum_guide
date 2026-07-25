@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:colosseum_guide/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -23,6 +25,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
   bool _showVolume = false;
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
+  final List<StreamSubscription> _subs = [];
 
   static const _speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
 
@@ -39,25 +42,29 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
 
-    widget.player.positionStream.listen((_) {
+    _subs.add(widget.player.positionStream.listen((_) {
       if (mounted) setState(() {});
-    });
-    widget.player.durationStream.listen((_) {
+    }));
+    _subs.add(widget.player.durationStream.listen((_) {
       if (mounted) setState(() {});
-    });
-    widget.player.playerStateStream.listen((state) {
-      if (mounted) setState(() {});
+    }));
+    _subs.add(widget.player.playerStateStream.listen((state) {
+      if (!mounted) return;
+      setState(() {});
       if (state.playing) {
         _pulseController.repeat(reverse: true);
       } else {
         _pulseController.stop();
         _pulseController.reset();
       }
-    });
+    }));
   }
 
   @override
   void dispose() {
+    for (final s in _subs) {
+      s.cancel();
+    }
     _pulseController.dispose();
     super.dispose();
   }

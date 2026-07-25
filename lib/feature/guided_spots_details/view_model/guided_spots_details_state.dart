@@ -17,13 +17,13 @@ class GuidedSpotsDetailsState {
     bool? audioLoaded,
     bool? loading,
     int? currentIndex,
-    List<TourPointModel>? tourPoints
+    List<TourPointModel>? tourPoints,
   }) {
     return GuidedSpotsDetailsState(
       audioLoaded: audioLoaded ?? this.audioLoaded,
       loading: loading ?? this.loading,
       currentIndex: currentIndex ?? this.currentIndex,
-      tourPoints: tourPoints ?? this.tourPoints
+      tourPoints: tourPoints ?? this.tourPoints,
     );
   }
 }

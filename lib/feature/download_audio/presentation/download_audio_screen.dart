@@ -1,26 +1,41 @@
 import 'package:colosseum_guide/core/route/route_manager.dart';
 import 'package:colosseum_guide/core/theme/app_colors.dart';
+import 'package:colosseum_guide/feature/download_audio/view_model/download_audio_state.dart';
+import 'package:colosseum_guide/feature/download_audio/view_model/download_audio_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class DownloadAudioScreen extends StatefulWidget {
+class DownloadAudioScreen extends ConsumerStatefulWidget {
   const DownloadAudioScreen({super.key});
 
   @override
-  State<DownloadAudioScreen> createState() => _DownloadAudioScreenState();
+  ConsumerState<DownloadAudioScreen> createState() =>
+      _DownloadAudioScreenState();
 }
 
-class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
-  // TODO: Replace with real download progress from your download service
-  final double _progress = 0.42;
+class _DownloadAudioScreenState extends ConsumerState<DownloadAudioScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final vm = ref.read(downloadAudioViewModelProvider.notifier);
+      if (!vm.currentState.isDownloading &&
+          !vm.currentState.isCompleted) {
+        vm.startDownload();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(downloadAudioViewModelProvider);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          _buildHero(context),
+          _buildHero(context, state),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -32,12 +47,16 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
                   const SizedBox(height: 26),
                   _buildGuideCard(),
                   const SizedBox(height: 30),
-                  _buildProgressSection(),
+                  _buildProgressSection(state),
+                  if (state.hasError) ...[
+                    const SizedBox(height: 16),
+                    _buildErrorRow(state),
+                  ],
                 ],
               ),
             ),
           ),
-          _buildCancelButton(context),
+          _buildBottomButton(context, state),
         ],
       ),
     );
@@ -45,7 +64,7 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
 
   // ── Hero ─────────────────────────────────────────────────────────────────
 
-  Widget _buildHero(BuildContext context) {
+  Widget _buildHero(BuildContext context, DownloadAudioState state) {
     final topPadding = MediaQuery.of(context).padding.top;
     return SizedBox(
       height: 200 + topPadding,
@@ -77,7 +96,7 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
           Positioned(
             top: topPadding + 14,
             left: 22,
-            child: const _StatusPill(),
+            child: _StatusPill(state: state),
           ),
         ],
       ),
@@ -177,7 +196,7 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
                     border: Border.all(color: AppColors.border),
                   ),
                   child: const Text(
-                    '~ 180 MB',
+                    '15 audio tracks',
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 11,
@@ -195,80 +214,183 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
 
   // ── Progress ─────────────────────────────────────────────────────────────
 
-  Widget _buildProgressSection() {
-    final pct = (_progress * 100).toInt();
+  Widget _buildProgressSection(DownloadAudioState state) {
+    final pct = (state.progress * 100).toInt();
+    final statusText = switch (state.status) {
+      DownloadStatus.downloading => 'Downloading...',
+      DownloadStatus.completed => 'Download complete',
+      DownloadStatus.error => 'Download failed',
+      DownloadStatus.cancelled => 'Download cancelled',
+      DownloadStatus.idle => 'Preparing...',
+    };
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Downloading...',
-              style: TextStyle(
+            Text(
+              statusText,
+              style: const TextStyle(
                 color: AppColors.textPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Text(
-              '$pct%',
-              style: const TextStyle(
-                color: AppColors.gold,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
+            if (state.status != DownloadStatus.completed)
+              Text(
+                '$pct%',
+                style: const TextStyle(
+                  color: AppColors.gold,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
           ],
         ),
-        const SizedBox(height: 14),
-        _GoldProgressBar(value: _progress),
-        const SizedBox(height: 20),
-        const Center(
-          child: Text(
-            'Keep the app open for the fastest download.',
-            textAlign: TextAlign.center,
+        const SizedBox(height: 6),
+        if (state.currentFile.isNotEmpty &&
+            state.status == DownloadStatus.downloading)
+          Text(
+            '${state.completedFiles} / ${state.totalFiles} — ${state.currentFile}',
             style: TextStyle(
-              color: AppColors.textSecondary,
-              fontSize: 13,
-              height: 1.5,
+              color: AppColors.textSecondary.withValues(alpha: 0.7),
+              fontSize: 12,
             ),
           ),
-        ),
-      ],
-    );
-  }
-
-  // ── Cancel ───────────────────────────────────────────────────────────────
-
-  Widget _buildCancelButton(BuildContext context) {
-    final bottomPad = MediaQuery.of(context).padding.bottom;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(24, 12, 24, bottomPad + 28),
-      child: GestureDetector(
-        onTap: () {
-          // navigate back to guided landing view
-          context.goNamed(guidedSpotsViewName);
-          
-        },
-        child: Container(
-          width: double.infinity,
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppColors.border, width: 1.5),
-          ),
-          child: const Center(
+        const SizedBox(height: 14),
+        _GoldProgressBar(value: state.progress),
+        const SizedBox(height: 20),
+        if (state.status == DownloadStatus.downloading)
+          const Center(
             child: Text(
-              'Cancel',
+              'Keep the app open for the fastest download.',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 16,
+                color: AppColors.textSecondary,
+                fontSize: 13,
+                height: 1.5,
+              ),
+            ),
+          ),
+        if (state.status == DownloadStatus.completed)
+          Center(
+            child: Text(
+              'All ${state.totalFiles} tracks ready offline.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppColors.success.withValues(alpha: 0.9),
+                fontSize: 13,
+                height: 1.5,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-        ),
+      ],
+    );
+  }
+
+  Widget _buildErrorRow(DownloadAudioState state) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.error.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.error_outline, color: AppColors.error, size: 18),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              state.errorMessage ?? 'Unknown error',
+              style: TextStyle(color: AppColors.error, fontSize: 12),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Bottom button ────────────────────────────────────────────────────────
+
+  Widget _buildBottomButton(BuildContext context, DownloadAudioState state) {
+    final bottomPad = MediaQuery.of(context).padding.bottom;
+
+    final isCompleted = state.status == DownloadStatus.completed;
+    final isError = state.status == DownloadStatus.error;
+    final isCancelled = state.status == DownloadStatus.cancelled;
+    final showSecondary = isError || isCancelled;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(24, 12, 24, bottomPad + 28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (showSecondary)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: GestureDetector(
+                onTap: () => ref
+                    .read(downloadAudioViewModelProvider.notifier)
+                    .startDownload(),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.gold,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Retry',
+                      style: TextStyle(
+                        color: AppColors.background,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          GestureDetector(
+            onTap: () {
+              if (state.isDownloading) {
+                ref.read(downloadAudioViewModelProvider.notifier).cancel();
+              }
+              if (isCompleted) {
+                context.goNamed(guidedSpotsViewName);
+              } else {
+                context.goNamed(guidedSpotsViewName);
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              height: 54,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border, width: 1.5),
+              ),
+              child: Center(
+                child: Text(
+                  isCompleted
+                      ? 'Continue'
+                      : state.isDownloading
+                          ? 'Cancel'
+                          : 'Back',
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -277,10 +399,19 @@ class _DownloadAudioScreenState extends State<DownloadAudioScreen> {
 // ── Sub-widgets ──────────────────────────────────────────────────────────────
 
 class _StatusPill extends StatelessWidget {
-  const _StatusPill();
+  final DownloadAudioState state;
+  const _StatusPill({required this.state});
 
   @override
   Widget build(BuildContext context) {
+    final (label, color) = switch (state.status) {
+      DownloadStatus.downloading => ('Downloading', AppColors.gold),
+      DownloadStatus.completed => ('Ready', AppColors.success),
+      DownloadStatus.error => ('Error', AppColors.error),
+      DownloadStatus.cancelled => ('Cancelled', AppColors.textSecondary),
+      DownloadStatus.idle => ('Preparing', AppColors.gold),
+    };
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -288,14 +419,14 @@ class _StatusPill extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.borderLight),
       ),
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _PulsingDot(),
-          SizedBox(width: 6),
+          _StatusDot(color: color),
+          const SizedBox(width: 6),
           Text(
-            'Downloading',
-            style: TextStyle(
+            label,
+            style: const TextStyle(
               color: AppColors.textPrimary,
               fontSize: 12,
               fontWeight: FontWeight.w500,
@@ -307,16 +438,17 @@ class _StatusPill extends StatelessWidget {
   }
 }
 
-class _PulsingDot extends StatelessWidget {
-  const _PulsingDot();
+class _StatusDot extends StatelessWidget {
+  final Color color;
+  const _StatusDot({required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 7,
       height: 7,
-      decoration: const BoxDecoration(
-        color: AppColors.gold,
+      decoration: BoxDecoration(
+        color: color,
         shape: BoxShape.circle,
       ),
     );
@@ -336,7 +468,7 @@ class _GoldProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: FractionallySizedBox(
-        widthFactor: value,
+        widthFactor: value.clamp(0.0, 1.0),
         alignment: Alignment.centerLeft,
         child: Container(
           decoration: BoxDecoration(

@@ -96,7 +96,7 @@ class GuidedSpotsView extends ConsumerWidget {
                                 style: ToastificationStyle.flat,
                                 autoCloseDuration: const Duration(seconds: 3),
                               )
-                            : _navigateToGuide(
+                            : _navigateToTourPoints(
                                 context,
                                 guidedSpotsState.tours[index],
                               ),
@@ -110,8 +110,11 @@ class GuidedSpotsView extends ConsumerWidget {
   }
 }
 
-void _navigateToGuide(BuildContext context, TourModel tour) {
-  context.pushNamed(guidedSpotsDetailsName, extra: tour.points);
+void _navigateToTourPoints(BuildContext context, TourModel tour) {
+  context.pushNamed(
+    tourPointsViewName,
+    extra: tour.points,
+  );
 }
 
 class _ImmersiveTourCard extends StatelessWidget {

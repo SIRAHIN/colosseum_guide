@@ -1,7 +1,7 @@
 import 'package:colosseum_guide/core/localization/app_localizations.dart';
 import 'package:colosseum_guide/core/route/route_manager.dart';
+import 'package:colosseum_guide/core/services/onboarding_cache.dart';
 import 'package:colosseum_guide/core/theme/app_colors.dart';
-import 'package:colosseum_guide/feature/language_select/data/local_language_data/local_language_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -53,13 +53,22 @@ class _SplashViewState extends ConsumerState<SplashView>
     _controller.forward();
 
     Future.delayed(const Duration(milliseconds: 2800), () async {
-      if (mounted) {
-        final language = await ref.read(localLanguageDataProvider).getLanguage();
-        if (language.isLanguageSelected) {
-          context.goNamed(guidedLandingViewName);
-        } else {
-          context.goNamed(languageSelectViewName, extra: guidedLandingViewName);
-        }
+      if (!mounted) return;
+      final onboarding = ref.read(onboardingCacheProvider);
+      final langSelected = await onboarding.isLanguageSelected();
+      final audioReady = await onboarding.isAudioDownloaded();
+
+      if (!langSelected) {
+        // First launch: auto-select English, skip language screen.
+        await onboarding.setLanguageSelected();
+      }
+
+      if (langSelected && audioReady) {
+        // Returning user — skip onboarding entirely.
+        context.goNamed(guidedSpotsViewName);
+      } else {
+        // Show landing → download flow.
+        context.goNamed(guidedLandingViewName);
       }
     });
   }

@@ -16,7 +16,8 @@ class GuidedSpotsDetailsView extends ConsumerStatefulWidget {
       _GuidedSpotsDetailsViewState();
 }
 
-class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView> {
+class _GuidedSpotsDetailsViewState
+    extends ConsumerState<GuidedSpotsDetailsView> {
   @override
   void initState() {
     super.initState();
@@ -29,9 +30,10 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(guidedSpotsDetailsViewModelProvider(widget.tourPoints));
-    final notifier =
-        ref.read(guidedSpotsDetailsViewModelProvider(widget.tourPoints).notifier);
+    final state =
+        ref.watch(guidedSpotsDetailsViewModelProvider(widget.tourPoints));
+    final notifier = ref.read(
+        guidedSpotsDetailsViewModelProvider(widget.tourPoints).notifier);
     final strings = ref.watch(appStringsProvider);
 
     if (state.loading) {
@@ -46,7 +48,20 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
       );
     }
 
-    final currentLocationPoint = state.tourPoints[state.currentIndex];
+    if (state.tourPoints.isEmpty) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: const Center(
+          child: Text(
+            'No points available for this tour.',
+            style: TextStyle(color: AppColors.textSecondary),
+          ),
+        ),
+      );
+    }
+
+    final currentLocationPoint =
+        state.tourPoints[state.currentIndex.clamp(0, state.tourPoints.length - 1)];
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -61,7 +76,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
             height: screenHeight * 0.50,
             child: Stack(
               children: [
-                // Image
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -70,7 +84,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                     ),
                   ),
                 ),
-                // Gradient overlay — fade into background
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -102,7 +115,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Back button — glassmorphism
                     _GlassButton(
                       onTap: () => Navigator.maybePop(context),
                       child: const Icon(
@@ -111,7 +123,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                         size: 18,
                       ),
                     ),
-                    // Stop indicator pill
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 18,
@@ -178,7 +189,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-                  // Drag handle + decorative accent
                   SliverToBoxAdapter(
                     child: Column(
                       children: [
@@ -195,15 +205,12 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       ],
                     ),
                   ),
-
-                  // Title section
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Gold accent with decorative dots
                           Row(
                             children: [
                               Container(
@@ -235,7 +242,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                             ],
                           ),
                           const SizedBox(height: 16),
-                          // Title
                           Text(
                             currentLocationPoint.title,
                             style: const TextStyle(
@@ -263,8 +269,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       ),
                     ),
                   ),
-
-                  // Description
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(28, 18, 28, 8),
@@ -279,8 +283,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       ),
                     ),
                   ),
-
-                  // ── Audio player — premium container ──
                   SliverToBoxAdapter(
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(20, 20, 20, 8),
@@ -309,7 +311,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       ),
                       child: Column(
                         children: [
-                          // Header row with decorative line
                           Padding(
                             padding: const EdgeInsets.fromLTRB(18, 16, 18, 0),
                             child: Row(
@@ -322,8 +323,8 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color:
-                                            AppColors.gold.withValues(alpha: 0.3),
+                                        color: AppColors.gold
+                                            .withValues(alpha: 0.3),
                                         blurRadius: 8,
                                       ),
                                     ],
@@ -335,7 +336,7 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                   ),
                                 ),
                                 const SizedBox(width: 12),
-                                Text(
+                                const Text(
                                   'Audio Guide',
                                   style: TextStyle(
                                     color: AppColors.textPrimary,
@@ -351,7 +352,8 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
                                         colors: [
-                                          AppColors.gold.withValues(alpha: 0.3),
+                                          AppColors.gold
+                                              .withValues(alpha: 0.3),
                                           Colors.transparent,
                                         ],
                                       ),
@@ -361,7 +363,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                               ],
                             ),
                           ),
-                          // Audio player widget
                           Padding(
                             padding: const EdgeInsets.fromLTRB(14, 8, 14, 14),
                             child: AudioPlayerWidget(
@@ -373,8 +374,6 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                       ),
                     ),
                   ),
-
-                  // ── Navigation buttons ──
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(28, 20, 28, 40),
@@ -395,8 +394,8 @@ class _GuidedSpotsDetailsViewState extends ConsumerState<GuidedSpotsDetailsView>
                             child: _NavButton(
                               label: strings.next,
                               icon: Icons.arrow_forward_rounded,
-                              enabled:
-                                  state.currentIndex < state.tourPoints.length - 1,
+                              enabled: state.currentIndex <
+                                  state.tourPoints.length - 1,
                               onTap: () =>
                                   notifier.goToStop(state.currentIndex + 1),
                               primary: true,
